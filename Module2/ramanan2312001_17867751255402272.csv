@@ -1,0 +1,71 @@
+Country,Year,Commodity Or Commodity Group,Additional Info,"Tonnes Originating (UOM:t(Tonne)), Scaling Factor:1000000","Net Tonne Kilometers (UOM:NTKM(Nettonnekilometers)), Scaling Factor:1000000","Earnings (UOM:INR(IndianRupees)), Scaling Factor:10000000"
+India,"Financial Year (Apr - Mar), 2023",Balance other goods,"Excludes 'other goods earnings' such as wharfage, demurrage, etc.,",117.63,84106,11321.69
+India,"Financial Year (Apr - Mar), 2023",Cement,,152.72,89112,13302.6
+India,"Financial Year (Apr - Mar), 2023",Coal,,786.84,426075,85130.55
+India,"Financial Year (Apr - Mar), 2023",Container Services,,84.76,76894,8117.24
+India,"Financial Year (Apr - Mar), 2023",Fertilizers,,58.92,50360,7068.11
+India,"Financial Year (Apr - Mar), 2023",Food grains,,51.44,58415,7024.03
+India,"Financial Year (Apr - Mar), 2023",Iron ore,,180.94,64955,13155.77
+India,"Financial Year (Apr - Mar), 2023",Mineral oil ( POL ),,49.88,35394,6706.71
+India,"Financial Year (Apr - Mar), 2023",Pig Iron and finished steel,,75.76,71968,11464.47
+India,"Financial Year (Apr - Mar), 2023",Raw material for steel plants except iron ore,,29.17,16689,2589.42
+India,"Financial Year (Apr - Mar), 2022",Balance other goods,"Excludes 'other goods earnings' such as wharfage, demurrage, etc.,",125.08,88514,11666.16
+India,"Financial Year (Apr - Mar), 2022",Cement,,143.93,86009,12196.83
+India,"Financial Year (Apr - Mar), 2022",Coal,,727.24,404138,80746.75
+India,"Financial Year (Apr - Mar), 2022",Container Services,,79.22,72451,7081.97
+India,"Financial Year (Apr - Mar), 2022",Fertilizers,,56.34,49832,6629.45
+India,"Financial Year (Apr - Mar), 2022",Food grains,,70.92,83756,10038.31
+India,"Financial Year (Apr - Mar), 2022",Iron ore,,160.14,57979,12314.07
+India,"Financial Year (Apr - Mar), 2022",Mineral oil ( POL ),,48.22,33690,6305.05
+India,"Financial Year (Apr - Mar), 2022",Pig Iron and finished steel,,69.87,66495,10529.33
+India,"Financial Year (Apr - Mar), 2022",Raw material for steel plants except iron ore,,28.15,16702,2650.56
+India,"Financial Year (Apr - Mar), 2021",Balance other goods,"Excludes 'other goods earnings' such as wharfage, demurrage, etc.,",118.71,78877,10017.71
+India,"Financial Year (Apr - Mar), 2021",Cement,,137.19,81476,10604.94
+India,"Financial Year (Apr - Mar), 2021",Coal,,652.81,327754,65856.08
+India,"Financial Year (Apr - Mar), 2021",Container Services,,74.26,66621,6274.54
+India,"Financial Year (Apr - Mar), 2021",Fertilizers,,49.18,44530,5428.27
+India,"Financial Year (Apr - Mar), 2021",Food grains,,73.38,97076,10660.52
+India,"Financial Year (Apr - Mar), 2021",Iron ore,,168.36,66123,13092.57
+India,"Financial Year (Apr - Mar), 2021",Mineral oil ( POL ),,44.46,31359,5822.02
+India,"Financial Year (Apr - Mar), 2021",Pig Iron and finished steel,,68.5,60239,9124.9
+India,"Financial Year (Apr - Mar), 2021",Raw material for steel plants except iron ore,,29.03,17761,2405.75
+India,"Financial Year (Apr - Mar), 2020",Balance other goods,"Excludes 'other goods earnings' such as wharfage, demurrage, etc.,",102.38,66464,8509.75
+India,"Financial Year (Apr - Mar), 2020",Mineral oil ( POL ),Revised,42.48,29970,5727.29
+India,"Financial Year (Apr - Mar), 2020",Cement,,120.4,73605,9713.67
+India,"Financial Year (Apr - Mar), 2020",Coal,,541.82,239390,49578.45
+India,"Financial Year (Apr - Mar), 2020",Container Services,,63.16,55331,5113.6
+India,"Financial Year (Apr - Mar), 2020",Fertilizers,,53.79,49011,5826.02
+India,"Financial Year (Apr - Mar), 2020",Food grains,,62.82,80681,9212.57
+India,"Financial Year (Apr - Mar), 2020",Iron ore,,159.13,62524,12661.43
+India,"Financial Year (Apr - Mar), 2020",Pig Iron and finished steel,,60.06,49123,7416.78
+India,"Financial Year (Apr - Mar), 2020",Raw material for steel plants except iron ore,,24.9,13663,1978.82
+India,"Financial Year (Apr - Mar), 2019",Balance other goods,"Excludes 'other goods earnings' such as wharfage, demurrage, etc.,",84.69,53631,7388.7
+India,"Financial Year (Apr - Mar), 2019",Cement,,110.1,63933,8744.82
+India,"Financial Year (Apr - Mar), 2019",Coal,,586.87,293051,54426.68
+India,"Financial Year (Apr - Mar), 2019",Container Services,,61.08,56686,2553.95
+India,"Financial Year (Apr - Mar), 2019",Fertilizers,,51.39,47162,5807.65
+India,"Financial Year (Apr - Mar), 2019",Food grains,,37.53,52641,6153.66
+India,"Financial Year (Apr - Mar), 2019",Iron ore,,153.37,50320,10965.9
+India,"Financial Year (Apr - Mar), 2019",Mineral oil ( POL ),,44.68,30774,5928.06
+India,"Financial Year (Apr - Mar), 2019",Pig Iron and finished steel,,53.13,45029,7286.65
+India,"Financial Year (Apr - Mar), 2019",Raw material for steel plants except iron ore,,25.57,14438,2216.23
+India,"Financial Year (Apr - Mar), 2018",Balance other goods,"Excludes 'other goods earnings' such as wharfage, demurrage, etc.,",86.88,59204,8327.67
+India,"Financial Year (Apr - Mar), 2018",Cement,,117.34,67818,10165.6
+India,"Financial Year (Apr - Mar), 2018",Coal,,605.84,311487,56963.64
+India,"Financial Year (Apr - Mar), 2018",Container Services,,60.17,57882,7369.2
+India,"Financial Year (Apr - Mar), 2018",Fertilizers,,51.83,46834,6348.24
+India,"Financial Year (Apr - Mar), 2018",Food grains,,39.31,57575,7615.98
+India,"Financial Year (Apr - Mar), 2018",Iron ore,,137.34,43323,9376.99
+India,"Financial Year (Apr - Mar), 2018",Mineral oil ( POL ),,43.01,29333,5631.62
+India,"Financial Year (Apr - Mar), 2018",Pig Iron and finished steel,,53.99,49926,8422.33
+India,"Financial Year (Apr - Mar), 2018",Raw material for steel plants except iron ore,,25.77,15141,2359.04
+India,"Financial Year (Apr - Mar), 2017",Balance other goods,"Excludes 'other goods earnings' such as wharfage, demurrage, etc.,",84.09,58306,7693.49
+India,"Financial Year (Apr - Mar), 2017",Cement,,112.96,63954,9613.34
+India,"Financial Year (Apr - Mar), 2017",Coal,,555.2,276692,52042.21
+India,"Financial Year (Apr - Mar), 2017",Container Services,,53.94,53703,5192.31
+India,"Financial Year (Apr - Mar), 2017",Fertilizers,,48.53,42035,5744.11
+India,"Financial Year (Apr - Mar), 2017",Food grains,,43.79,61750,8402.81
+India,"Financial Year (Apr - Mar), 2017",Iron ore,,139.8,43807,8801.71
+India,"Financial Year (Apr - Mar), 2017",Mineral oil ( POL ),,43.11,29519,5668.16
+India,"Financial Year (Apr - Mar), 2017",Pig Iron and finished steel,,54.36,49048,8182.11
+India,"Financial Year (Apr - Mar), 2017",Raw material for steel plants except iron ore,,23.77,14102,2183.28

@@ -1,0 +1,8 @@
+*.env
+.env
+
+# Ignore Python virtual environment
+venv/
+Module1/venv/
+# Ignore environment configuration file
+env.py
