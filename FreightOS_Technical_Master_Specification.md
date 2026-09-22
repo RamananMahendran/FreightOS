@@ -76,7 +76,16 @@ To ensure high performance, fault tolerance, low computational latency, and modu
             │ (CDC-synced)    │                 │ GAMS (offline)  │
             └─────────────────┘                 └─────────────────┘
 
+LayerSelected TechDecision Rationale & Justification
+Backend FrameworkFastAPI (Python 3.11 )Native asynchronous support (asyncio) enables handling thousands of concurrent telemetry streams; Pydantic validation ensures strict data contracts.  
+Unified Graph-Relational DB PostgreSQL + Apache AGE Railway networks are topological graphs. Using Apache AGE on top of PostgreSQL eliminates dual-store sync latency and CDC pipeline overhead, allowing openCypher graph traversals directly within SQL queries.  
+Time-Series / Telemetry DB PostgreSQL + TimescaleDB Stores operational logs, sensor telemetry, and transactional freight records with hypertable chunking.  
+Optimization Solve rCustom Hybrid Elitist GA + OPT (Python) Bypasses exact $O(2^n)$ MILP solver delays by computing near-optimal timetables and wagon allocations in under 5 seconds for 100+ trains.  
+Simulation SandboxSimPy (Discrete-Event) + Mesa (Agent-Based) Pure-Python co-simulation combining yard crane workflows with autonomous train movement physics.  
+Predictive AI / DLPyTorch (DemandLSTM with Cost-Matrix Loss)Recurrent neural networks with asymmetric domain losses for multi-horizon freight demand forecasting.  
+LLM InterfaceLocal LLM (Llama-3-8B / Mistral-7B) via Ollama Schema-validated structured intent generation bounded by physical simulation gates. 
 
+ Frontend UIReact.js, Tailwind CSS, Deck.glHigh-performance 3D geospatial rendering of railway corridors, train positions, and switching yards.  
 Technology Selection Rationale
 
 Layer
@@ -97,41 +106,8 @@ Neo4j (v5+)
 
 Railway networks are topological graphs. Querying multi-hop alternative routing or bottleneck propagation via Cypher in Neo4j runs in $O(1)$ dynamic graph traversal time, avoiding expensive SQL recursive JOIN operations. Note: running Neo4j alongside PostgreSQL/TimescaleDB as two independent stores introduces a consistency problem (which system is authoritative for a track segment's live status). FreightOS addresses this with an explicit Change-Data-Capture (CDC) pipeline (e.g., Debezium) replicating relevant Postgres transactional state into Neo4j node/edge properties; teams that want to avoid the dual-store operational overhead entirely may instead evaluate Apache AGE (a graph extension on top of Postgres) as a single-database alternative.
 
-Relational / Time-Series DB
 
-PostgreSQL + TimescaleDB
 
-Stores high-frequency operational logs, sensor telemetry, and transactional freight records with hyper-table chunking for fast time-series queries.
-
-Optimization Solver
-
-Python (Custom Hybrid Elitist GA+OPT)
-
-Bypasses exact $O(2^n)$ MILP solver delays by computing near-optimal timetables and wagon allocations in under 5 seconds for 100+ trains.
-
-Simulation Sandbox
-
-SimPy (Discrete-Event) + Mesa (Agent-Based), pure Python
-
-Enables multi-method co-simulation: combining Discrete-Event Simulation (for yard crane/switching workflows) with Agent-Based Modeling (for individual autonomous train physics on track corridors). Revised from the original AnyLogic (Personal/Pro) choice: AnyLogic's proprietary licensing and GUI-centric modeling make it costly to scale and hard to integrate into automated CI/CD and version control. SimPy + Mesa are open-source, pure-Python, and integrate directly with the FastAPI/PyTorch stack, enabling the simulation sandbox to be unit-tested and deployed the same way as the rest of the backend. AnyLogic remains a reasonable option only if a GUI-based model-authoring tool is specifically needed for non-engineer stakeholders.
-
-Predictive AI / DL
-
-PyTorch & PyTorch Geometric (PyG)
-
-Trains Spatiotemporal Graph Neural Networks (ST-GNN) for delay propagation and Temporal Fusion Transformers (TFT) for multi-horizon demand forecasting.
-
-LLM Interface
-
-Local LLM (Llama-3-8B / Mistral-7B) via Ollama
-
-Ensures full data privacy and low-latency inference for local railway operators, integrated with LangChain/LlamaIndex for Graph-RAG. Caution: 7–8B parameter models are not highly reliable at direct natural-language-to-Cypher generation for safety-critical dispatch use. FreightOS mitigates this by having the LLM emit a schema-validated structured intent object (Pydantic-checked JSON) rather than raw Cypher, which is then deterministically compiled into a query — this bounds the failure surface to intent misclassification rather than malformed or unsafe graph queries.
-
-Frontend UI
-
-React.js, Tailwind CSS, Deck.gl
-
-Provides responsive dashboarding and 3D geospatial rendering of railway corridors, train agent positions, dynamic heatmaps, and switching yards. Revised from an original Three.js + Deck.gl combination: running two separate 3D/geospatial rendering pipelines added maintenance overhead without a clear benefit. Deck.gl's layer system alone is sufficient for track/train visualization at this scale; Three.js would only be justified for highly custom, non-geo-referenced 3D scenes.
 
 4. System Architecture: The 5 Core Modules
 
@@ -145,7 +121,7 @@ FreightOS is organized into five decoupled, highly cohesive modules:
                                      ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
 │             MODULE 2: COGNITIVE DEMAND & PREDICTIVE ANALYTICS           │
-│  [TFT Demand Forecaster] ──► [Transfer Learning] ──► [Cost-Matrix Loss] │
+│  [IR National Priors] ──► [Gravity Corridor Selector] ──► [DemandLSTM] │
 └────────────────────────────────────┬────────────────────────────────────┘
                                      │
                                      ▼
@@ -200,6 +176,53 @@ The engine ingests three tiers of Indian Railways open data and harmonizes them 
 1. **Annual Key Statistics (1950–2014):** Provides long-term multi-decade tonnage trends for CAGR estimation.
 2. **Monthly Traffic & Freight Revenue Data:** Ingests monthly commodity traffic to calculate 12-month empirical seasonal indices ($S_m$).
 3. **Recent Commodity & NTKM Financial Records:** Provides actual commodity earnings shares and Net Tonne Kilometers (NTKM) for national-to-regional volume scaling.
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       INDIAN RAILWAYS HISTORICAL DATA                       │
+│   • Annual Key Statistics (1950–2014) ──► Log-Linear CAGR Fit ($g_c$)       │
+│   • Monthly Freight Earnings (2013–2014) ──► Monthly Seasonal Index ($S_m$) │
+│   • Recent Performance (FY2017–2023) ──► National Commodity Shares ($w_c$)  │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                 APACHE AGE TOPOLOGICAL GRAVITY CORRIDOR SELECTOR            │
+│                                                                             │
+│   $$\text{Score}(s_1, s_2) = \sqrt{\text{deg}(s_1) \cdot \text{deg}(s_2)} \cdot \ln(1 + d(s_1, s_2))$$   │
+│                                                                             │
+│   • Extracts high-degree station junctions ($10\text{ km} \le d \le 120\text{ km}$) │
+│   • Multiplies by national commodity shares ($w_c \times \text{Regional Share}$) │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      CORRIDOR TIME-SERIES SYNTHESIZER                       │
+│  $$y(t) = w_{\text{corridor}} \cdot B \cdot e^{g \cdot t} \cdot S_m \cdot W_{\text{day}} \cdot \text{Noise} \cdot \text{Disruption}$$ │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                     6-FEATURE SLIDING WINDOW DATASET                        │
+│   $$\mathbf{x}_t = [y_{\text{norm}}, \text{dow}, \sin(2\pi m/12), \cos(2\pi m/12), \text{lag}_7, \text{lag}_{14}]$$ │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                 PRODUCTION DEMAND LSTM WITH COST-MATRIX LOSS                │
+│   • Single-Layer LSTM ($\text{hidden\_size}=64$, $\text{lookback}=30$, $\text{horizon}=14$)  │
+│   • Asymmetric Loss: $c_{\text{under}} = 2.0$, $c_{\text{over}} = 1.0$      │
+│   • Checkpoint Engine: Tracks Best Validation-MAE state                     │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                  MODULE 3 CARGO PAYLOAD STRUCT EMISSION                     │
+│   `{"id": ..., "origin": ..., "dest": ..., "weight": ..., "due_date": ...}` │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+Key ComponentsPriors Extraction: Uses three tiers of Indian Railways open data to derive continuous annual growth trends ($g_c$) and monthly seasonal multipliers ($S_m$) across 10 canonical commodity groups.  Topological Gravity Selection: Evaluates track degree centralities from Apache AGE to pick realistic, high-throughput corridor pairs rather than relying on arbitrary limits.  Feature-Rich Recurrent Sequence Model: Feeds 6 input features (including explicit lag-7 and lag-14 autoregressive shortcuts) into a single-layer LSTM.  Asymmetric Optimization: Trains via Cost-Matrix loss ($c_{\text{under}}=2.0$), heavily penalizing under-predictions that cause wagon shortages and line bottlenecks.  Best-Checkpoint Tracking: Restores model weights from the epoch achieving minimum validation MAE, guarded by early stopping.  
 
 #### 3. Topological Gravity Corridor Selection via Apache AGE
 Candidate freight corridors are ranked dynamically from the PostgreSQL + Apache AGE graph (`national_freight_graph`) using openCypher:
@@ -306,6 +329,12 @@ $$tardi_j = \max\left(0, \, wr_j - u_j\right)$$
 
 
 Where $wr_j$ is actual arrival time at destination, and $u_j$ is client due date.
+5.3 Objective 3: Module 2 Predictive Analytics & Asymmetric Loss Physics
+Calculates multi-horizon freight demand using asymmetric penalty weightings:  
+
+$$\mathcal{L}_{\text{custom}} = \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2 \times \left[ c_{\text{under}} \cdot \mathbb{I}(y_i > \hat{y}_i) + c_{\text{over}} \cdot \mathbb{I}(y_i \le \hat{y}_i) \right]$$
+
+$y_i$: Actual daily freight demand tonnage.  $\hat{y}_i$: Predicted daily freight demand tonnage.  $c_{\text{under}} = 2.0$: Penalty multiplier for under-prediction (avoids stranded cargo and missed freight contracts).  $c_{\text{over}} = 1.0$: Penalty multiplier for over-prediction.  $\mathbb{I}(\cdot)$: Indicator function.
 
 Core Allocation Constraints:
 
@@ -484,8 +513,32 @@ class FreightHeuristicSolver:
             corrected[pos], corrected[target_idx] = corrected[target_idx], corrected[pos]
         return corrected
 
+6.2 import torch
+import torch.nn as nn
+import numpy as np
+import copy
 
-6.2 FastAPI Copilot Safety Verification Pipeline (Module 5 Integration)
+class CostMatrixLoss(nn.Module):
+    def __init__(self, underestimate_penalty: float = 2.0):
+        super().__init__()
+        self.underestimate_penalty = underestimate_penalty
+
+    def forward(self, y_pred, y_actual):
+        error = y_actual - y_pred
+        weight = torch.where(error > 0, self.underestimate_penalty, 1.0)
+        return torch.mean(weight * error ** 2)
+
+class DemandLSTM(nn.Module):
+    def __init__(self, n_features: int = 6, hidden_size: int = 64, num_layers: int = 1, horizon: int = 14):
+        super().__init__()
+        self.lstm = nn.LSTM(n_features, hidden_size, num_layers=num_layers, batch_first=True)
+        self.head = nn.Linear(hidden_size, horizon)
+
+    def forward(self, x):
+        _, (h_n, _) = self.lstm(x)
+        return self.head(h_n[-1])
+
+6.3 FastAPI Copilot Safety Verification Pipeline (Module 5 Integration)
 
 from fastapi import FastAPI, HTTPException
 import httpx
@@ -572,33 +625,13 @@ async def validate_copilot_command(payload: CopilotCommandPayload):
 
 To defend architectural choices during engineering reviews or context evaluation, the following matrix summarizes why specific approaches were taken:
 
-┌───────────────────────────┬───────────────────────────┬───────────────────────────┐
-│ Design Challenge          │ Chosen Architecture       │ Alternative Rejected      │
-├───────────────────────────┼───────────────────────────┼───────────────────────────┤
-│ Railway Network Topology  │ Neo4j Graph Database      │ SQL Relational Database   │
-│ Modeling                  │ (Native O(1) traversals)  │ (Expensive JOIN queries)  │
-├───────────────────────────┼───────────────────────────┼───────────────────────────┤
-│ Dynamic Train Timetabling │ Hybrid GA + OPT Solver    │ Exact MILP / GAMS         │
-│ Optimization              │ (< 5 sec computation)     │ (16+ min scaling wall)    │
-├───────────────────────────┼───────────────────────────┼───────────────────────────┤
-│ Human-AI Interaction &    │ Multi-Fidelity Triage     │ Direct LLM Script         │
-│ Automation Safety         │ Sandbox Validation Loop   │ Execution (Hallucination) │
-├───────────────────────────┼───────────────────────────┼───────────────────────────┤
-│ Un-instrumented Legacy    │ Few-Shot Transfer         │ Mandatory IoT Sensors     │
-│ Fleet Telemetry           │ Learning + Cost Matrix    │ (Prohibitively expensive) │
-├───────────────────────────┼───────────────────────────┼───────────────────────────┤
-│ Operational Sandbox &     │ Agent-Based (Mesa) +      │ Pure Mathematical         │
-│ Validation                │ Discrete-Event (SimPy)    │ Equations (No dynamic UI) │
-└───────────────────────────┴───────────────────────────┴───────────────────────────┘
-
+Design ChallengeChosen ArchitectureAlternative RejectedJustificationRailway Graph ModelingPostgreSQL + Apache AGEDual-store Neo4j + Postgres with CDCEliminates dual-database synchronization overhead while maintaining sub-millisecond openCypher graph traversals.  Dynamic Timetabling OptimizationHybrid Elitist GA + OPT SolverExact MILP / GAMSDelivers near-optimal dispatching within $<5$ seconds for 100+ trains, escaping the 16+ min MILP scaling wall.  Demand Forecasting ModelSingle-layer DemandLSTM + Lag FeaturesMulti-layer GRU / LightGBMEmpirically achieved the highest average rank across 8 multi-commodity corridors, beating baseline variants.Demand Optimization LossAsymmetric Cost-Matrix Loss ($c_{\text{under}}=2.0$)Symmetric MSE LossPenalizes under-prediction to protect against wagon shortages and network congestion bottlenecks.  Human-AI Automation SafetyTwo-Tier Triage Gatekeeper LoopDirect LLM Dispatch ExecutionEnforces explicit operator intent confirmation followed by physical co-simulation safety verification.  Simulation SandboxAgent-Based (Mesa) + Discrete-Event (SimPy)Proprietary AnyLogic EngineOpen-source, pure Python, fully testable within automated CI/CD pipelines.  
 
 8. Datasets & Data Pipelines
 
 FreightOS processes three primary dataset tiers:
 
-National Infrastructure & GIS Topology Dataset: Track and station geometry, junctions, speed limits, and topology, primarily sourced from OpenStreetMap rail extracts via Geofabrik, Overpass API, or OSM2Rail/OSM2GMNS (see Module 1 for the ingestion pipeline and tag mapping), optionally cross-checked against a secondary source such as an official government GIS release or a digitized layer like ArcGIS Hub's "Railway Network of India." Fields not reliably present in OSM (elevation gradients, loading dock coordinates, max axle load, traversing capacity) are sourced from regional rail authorities where available, or flagged as unverified/synthetic pending an authoritative engineering release. Imported into Neo4j / PostgreSQL+AGE.
-
-Historic Operational & Telemetry Logs: Synthetic and historical operational records covering train IDs, actual vs. scheduled arrival times, segment speeds, weight loads, weather parameters, and delay profiles across varying fleet sizes (6 to 120 trains).
+National Infrastructure & GIS Topology Dataset: Sourced from OpenStreetMap railway extracts (Overpass API / Geofabrik). Intermediate track ways and station nodes are ingested into Apache AGE with Haversine distance calculations and KD-Tree spatial snapping.Indian Railways Historical Statistics (Macro-level Priors):Annual Key Statistics (1950–2014): Multi-decade commodity tonnage records for log-linear CAGR modeling.  Monthly Freight Traffic & Earnings (2013–2014): 10-month monthly breakdown used for empirical seasonal multipliers ($S_m$).  Recent Commodity Performance (FY2017–2023): Million-tonne originating and NTKM figures establishing modern commodity volume allocations.
 
 Crowdsourced Demand Intent Dataset: Transactional survey data capturing pre-booking shipping intentions directly from agricultural, mining, and manufacturing partners, formatted as JSON payloads containing shipping windows, commodity types, tonnages, origins, and destination due dates.
 
@@ -642,8 +675,8 @@ The engine ingests three tiers of Indian Railways open data and harmonizes them 
 #### 3. Topological Gravity Corridor Selection via Apache AGE
 Candidate freight corridors are ranked dynamically from the PostgreSQL + Apache AGE graph (`national_freight_graph`) using openCypher:
 
-```sql
-SELECT * FROM ag_catalog.cypher('national_freight_graph', $$     MATCH (s:Station)-[r:TRACK_SEGMENT]-()     WHERE s.name IS NOT NULL AND NOT s.name STARTS WITH 'Node_'     RETURN s.id, s.name, count(r) as degree, s.latitude, s.longitude $$) AS (id agtype, name agtype, degree agtype, lat agtype, lon agtype);
+`sql
+SELECT * FROM ag_catalog.cypher('national_freight_graph', $$     MATCH (s:Station)-[r:TRACK_SEGMENT]-()     WHERE s.name IS NOT NULL AND NOT s.name STARTS WITH 'Node_'     RETURN s.id, s.name, count(r) as degree, s.latitude, s.longitude $$) AS (id agtype, name agtype, degree agtype, lat agtype, lon agtype);`
 
 Module 3 (Optimization Engine)
 
@@ -753,10 +786,10 @@ Documentation & viva prep
 
 33–35
 
-Final report, architecture defense against Section 7's trade-off matrix, demo rehearsal
+Final report, architecture defense against Section 7s trade-off matrix, demo rehearsal
 
 10.4 Risk Notes
 
-Build in slack around weeks 12 and 27 — the optimization engine and the RAG copilot are the two highest-uncertainty components and are most likely to run over. If time pressure emerges, drop the ST-GNN/GCN and TFT stretch goals first; they are explicitly optional and do not block any other module's completion.
+Build in slack around weeks 12 and 27 — the optimization engine and the RAG copilot are the two highest-uncertainty components and are most likely to run over. If time pressure emerges, drop the ST-GNN/GCN and TFT stretch goals first; they are explicitly optional and do not block any other modules completion.
 
 Refer to Algorithm Baselines: When modifying heuristics, ensure the reference-guided sequence correction step and OPT local search sweep preserve the exact constraints defined in Section 5 (Traversing times, Dwelling minimums, Safe headway distances $ST_{pd}$, and the configurable minimum weight-loading fraction $\mu_t$).

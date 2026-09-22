@@ -1,0 +1,10 @@
+model,val_mae,notes
+"GRU, high penalty",1.0659551620483398,final val_loss=0.4467
+LSTM baseline,1.0926989316940308,final val_loss=0.4375
+"GRU, larger hidden",1.1107287406921387,final val_loss=0.4252
+GRU baseline,1.1522945165634155,final val_loss=0.5112
+"GRU, 2 layers+dropout",1.1627389192581177,final val_loss=0.5307
+LightGBM (lag features),1.1869361468653676,per-horizon-step trees
+"GRU, low penalty",1.1938965320587158,final val_loss=0.3155
+Seasonal Naive (lag=7),1.3808096836470898,sanity floor
+Naive Persistence,2.47170597864126,sanity floor

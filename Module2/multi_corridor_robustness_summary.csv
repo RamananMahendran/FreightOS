@@ -1,0 +1,10 @@
+model,avg_rank,avg_val_mae,n_corridors
+LSTM baseline,2.5,0.5905723944306374,8
+"GRU, larger hidden",2.625,0.5956401927396655,8
+"GRU, low penalty",3.75,0.6052615372464061,8
+"GRU, 2 layers+dropout",3.875,0.5958614330738783,8
+GRU baseline,4.0,0.5997701678425074,8
+"GRU, high penalty",5.5,0.6175933182239532,8
+LightGBM (lag features),5.75,0.6263847874847785,8
+Seasonal Naive (lag=7),8.0,0.7959383611097063,8
+Naive Persistence,9.0,1.2378727112418586,8

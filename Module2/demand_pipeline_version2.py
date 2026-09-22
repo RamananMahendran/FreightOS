@@ -2,13 +2,21 @@
 FreightOS Module 2: Cognitive Demand & Predictive Analytics Engine
 Integrates Indian Railways historical freight statistics with Apache AGE
 Topological Gravity Ranking for corridor candidate selection.
+
+PRODUCTION MODEL: Single-layer LSTM (hidden_size=64), Cost-Matrix loss with
+underestimate_penalty=2.0, 6 input features including lag-7/lag-14 shortcuts,
+and best-validation-MAE checkpoint tracking.
 """
 
 import os
 import re
 import math
 import random
+import copy
+import sys
+from pathlib import Path
 from dataclasses import dataclass
+import json
 from typing import List, Tuple, Dict
 
 import numpy as np
@@ -22,10 +30,26 @@ random.seed(RANDOM_SEED)
 np.random.seed(RANDOM_SEED)
 torch.manual_seed(RANDOM_SEED)
 
-# Local dataset paths (auto-resolves from current directory or data subfolder)
+# --- Path Configurations ---
 ANNUAL_CSV = os.getenv("ANNUAL_CSV", "Railway_Key_Statistics_1950-51_to_2013-14.CSV")
 MONTHLY_CSV = os.getenv("MONTHLY_CSV", "mothly_Railway_Traffic_Earnings_Freight_Revenue_upto_may_2014.csv")
 RECENT_CSV = os.getenv("RECENT_CSV", "ramanan2312001_17867751255402272.csv")
+
+# --- Robust DB Module Import Resolution ---
+DB_MODULE_AVAILABLE = False
+MODULE2_DIR = Path(__file__).resolve().parent
+MODULE1_DIR = MODULE2_DIR.parent / "Module1"
+
+if str(MODULE1_DIR) not in sys.path:
+    sys.path.insert(0, str(MODULE1_DIR))
+
+try:
+    from db import execute_cypher
+    DB_MODULE_AVAILABLE = True
+    print(f"✅ Successfully linked db.py from: {MODULE1_DIR}")
+except Exception as e:
+    print(f"⚠️ Failed to import db.py: {type(e).__name__} - {e}")
+    print("   Falling back to static default corridors.")
 
 COMMODITY_MAP = {
     "annual": {
@@ -65,26 +89,6 @@ COMMODITY_MAP = {
         "Balance other goods": "Others",
     },
 }
-
-import sys
-from pathlib import Path
-
-# --- Robust DB Module Import Resolution ---
-DB_MODULE_AVAILABLE = False
-MODULE2_DIR = Path(__file__).resolve().parent
-MODULE1_DIR = MODULE2_DIR.parent / "Module1"
-
-# Add Module1 directory to Python search path
-if str(MODULE1_DIR) not in sys.path:
-    sys.path.insert(0, str(MODULE1_DIR))
-
-try:
-    from db import execute_cypher
-    DB_MODULE_AVAILABLE = True
-    print(f"✅ Successfully linked db.py from: {MODULE1_DIR}")
-except Exception as e:
-    print(f"⚠️ Failed to import db.py: {type(e).__name__} - {e}")
-    print("   Falling back to static default corridors.")
 
 FALLBACK_CORRIDORS = [
     ("OSM_NODE_248545108", "OSM_NODE_261716087", "Container Service", 0.015),
@@ -201,17 +205,13 @@ def fit_monthly_seasonal_index(monthly_df: pd.DataFrame) -> dict:
 # ---------------------------------------------------------------------------
 
 def fetch_chennai_corridors_from_graph(n_corridors: int = 8) -> list:
-    """
-    Ranks candidate station pairs by topological gravity (hub degrees + distance span)
-    instead of arbitrary node ID ordering.
-    """
+    """Ranks candidate station pairs by topological gravity (degree product + distance span)."""
     CHENNAI_SHARE_OF_NATIONAL = 0.02
 
     if not DB_MODULE_AVAILABLE:
         print("  ⚠️ db.py not importable -- using fallback corridors.")
         return FALLBACK_CORRIDORS
 
-    # Query 1: Extract all named stations with their degree of track connectivity
     hub_degree_query = """
         MATCH (s:Station)-[r]-()
         WHERE s.name IS NOT NULL AND NOT s.name STARTS WITH 'Node_'
@@ -229,7 +229,6 @@ def fetch_chennai_corridors_from_graph(n_corridors: int = 8) -> list:
     if not hub_rows:
         return FALLBACK_CORRIDORS
 
-    # Parse stations into structured hub records
     station_hubs = {}
     for row in hub_rows:
         st_id = str(row[0]).strip('"')
@@ -237,18 +236,14 @@ def fetch_chennai_corridors_from_graph(n_corridors: int = 8) -> list:
         deg = int(row[2]) if row[2] is not None else 1
         lat = float(row[3]) if row[3] is not None else 0.0
         lon = float(row[4]) if row[4] is not None else 0.0
-        station_hubs[st_id] = {
-            "name": st_name, "degree": deg, "lat": lat, "lon": lon
-        }
+        station_hubs[st_id] = {"name": st_name, "degree": deg, "lat": lat, "lon": lon}
 
-    # Haversine distance calculator for gravity spatial constraints
     def _dist_km(lat1, lon1, lat2, lon2):
         r = 6371.0
         dlat, dlon = math.radians(lat2 - lat1), math.radians(lon2 - lon1)
         a = math.sin(dlat/2)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon/2)**2
         return r * (2 * math.atan2(math.sqrt(a), math.sqrt(1 - a)))
 
-    # Pairwise Gravity Scoring across active stations
     candidate_pairs = []
     hub_ids = list(station_hubs.keys())
 
@@ -256,22 +251,16 @@ def fetch_chennai_corridors_from_graph(n_corridors: int = 8) -> list:
         for j in range(i + 1, len(hub_ids)):
             u, v = hub_ids[i], hub_ids[j]
             s1, s2 = station_hubs[u], station_hubs[v]
-            
             d_km = _dist_km(s1["lat"], s1["lon"], s2["lat"], s2["lon"])
             
-            # Filter: Target realistic freight corridors (10 km to 120 km)
             if 10.0 <= d_km <= 120.0:
-                # Gravity Formulation: Hub Connectivity Degree Product scaled by Corridor Span
                 gravity_score = (math.sqrt(s1["degree"] * s2["degree"])) * math.log(1.0 + d_km)
                 candidate_pairs.append((gravity_score, u, s1["name"], v, s2["name"], d_km))
 
-    # Sort descending by topological gravity score
     candidate_pairs.sort(key=lambda x: x[0], reverse=True)
-
     if not candidate_pairs:
         return FALLBACK_CORRIDORS
 
-    # National Commodity Weights from FY2023 actuals
     try:
         recent_df = load_recent_dataset()
         latest = recent_df[recent_df["year"] == recent_df["year"].max()]
@@ -288,7 +277,7 @@ def fetch_chennai_corridors_from_graph(n_corridors: int = 8) -> list:
     for score, s1_id, s1_name, s2_id, s2_name, d_km in candidate_pairs[:n_corridors]:
         comm = random.choices(commodities, weights=weights, k=1)[0]
         share = commodity_shares.get(comm, 0.1)
-        corridor_weight = (share * CHENNAI_SHARE_OF_NATIONAL)
+        corridor_weight = share * CHENNAI_SHARE_OF_NATIONAL
         selected_corridors.append((s1_id, s2_id, comm, corridor_weight))
         print(f"  • {s1_name} <──({d_km:.1f} km, Score: {score:.2f})──> {s2_name} | Assigned: [{comm}]")
 
@@ -331,11 +320,18 @@ def synthesize_corridor_series(
     return pd.DataFrame(records)
 
 # ---------------------------------------------------------------------------
-# Stage 5: GRU Forecaster with Asymmetric Cost-Matrix Loss
+# Stage 5: Production LSTM Forecaster with Cost-Matrix Loss
 # ---------------------------------------------------------------------------
 
+PRODUCTION_HIDDEN_SIZE = 64
+PRODUCTION_NUM_LAYERS = 1
+PRODUCTION_UNDERESTIMATE_PENALTY = 2.0
+PRODUCTION_LOOKBACK = 30
+MAX_EPOCHS = 30
+EARLY_STOP_PATIENCE = 8
+
 class CostMatrixLoss(nn.Module):
-    def __init__(self, underestimate_penalty: float = 4.0):
+    def __init__(self, underestimate_penalty: float = PRODUCTION_UNDERESTIMATE_PENALTY):
         super().__init__()
         self.underestimate_penalty = underestimate_penalty
 
@@ -344,19 +340,21 @@ class CostMatrixLoss(nn.Module):
         weight = torch.where(error > 0, self.underestimate_penalty, 1.0)
         return torch.mean(weight * error ** 2)
 
-class DemandGRU(nn.Module):
-    def __init__(self, n_features: int = 4, hidden_size: int = 64, horizon: int = 14):
+class DemandLSTM(nn.Module):
+    """Single-layer LSTM forecaster."""
+    def __init__(self, n_features: int = 6, hidden_size: int = PRODUCTION_HIDDEN_SIZE,
+                 num_layers: int = PRODUCTION_NUM_LAYERS, horizon: int = 14):
         super().__init__()
-        self.gru = nn.GRU(n_features, hidden_size, batch_first=True)
+        self.lstm = nn.LSTM(n_features, hidden_size, num_layers=num_layers, batch_first=True)
         self.head = nn.Linear(hidden_size, horizon)
 
     def forward(self, x):
-        _, h_n = self.gru(x)
-        return self.head(h_n.squeeze(0))
+        _, (h_n, _) = self.lstm(x)
+        return self.head(h_n[-1])
 
 @dataclass
 class WindowConfig:
-    lookback: int = 30
+    lookback: int = PRODUCTION_LOOKBACK
     horizon: int = 14
 
 class CorridorDemandDataset(Dataset):
@@ -373,8 +371,13 @@ class CorridorDemandDataset(Dataset):
         dow = sub["date"].dt.dayofweek.values.astype(np.float32) / 6.0
         month_sin = np.sin(2 * np.pi * sub["month"].values / 12).astype(np.float32)
         month_cos = np.cos(2 * np.pi * sub["month"].values / 12).astype(np.float32)
+        
+        # Lag-7 and Lag-14 weekly autoregressive shortcuts
+        lag7 = np.roll(tonnage_norm, 7); lag7[:7] = tonnage_norm[0]
+        lag14 = np.roll(tonnage_norm, 14); lag14[:14] = tonnage_norm[0]
 
-        features = np.stack([tonnage_norm, dow, month_sin, month_cos], axis=1)
+        features = np.stack([tonnage_norm, dow, month_sin, month_cos, lag7, lag14], axis=1)
+        self.n_features = features.shape[1]
 
         self.X, self.y = [], []
         for i in range(len(features) - cfg.lookback - cfg.horizon + 1):
@@ -392,7 +395,8 @@ class CorridorDemandDataset(Dataset):
     def denormalize(self, arr):
         return arr * self.std + self.mean
 
-def train_corridor_model(series_df: pd.DataFrame, corridor_key: tuple, epochs: int = 15):
+def train_corridor_model(series_df: pd.DataFrame, corridor_key: tuple, epochs: int = MAX_EPOCHS):
+    """Trains LSTM forecaster with best-validation-MAE checkpoint tracking."""
     cfg = WindowConfig()
     dataset = CorridorDemandDataset(series_df, corridor_key, cfg)
     if len(dataset) < 10:
@@ -404,9 +408,14 @@ def train_corridor_model(series_df: pd.DataFrame, corridor_key: tuple, epochs: i
     train_loader = DataLoader(train_ds, batch_size=16, shuffle=True)
     val_loader = DataLoader(val_ds, batch_size=16, shuffle=False)
 
-    model = DemandGRU(n_features=4, horizon=cfg.horizon)
-    loss_fn = CostMatrixLoss(underestimate_penalty=4.0)
+    model = DemandLSTM(n_features=dataset.n_features, horizon=cfg.horizon)
+    loss_fn = CostMatrixLoss(underestimate_penalty=PRODUCTION_UNDERESTIMATE_PENALTY)
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+
+    best_val_mae = float("inf")
+    best_epoch = -1
+    best_state = None
+    epochs_since_improve = 0
 
     for epoch in range(epochs):
         model.train()
@@ -416,19 +425,40 @@ def train_corridor_model(series_df: pd.DataFrame, corridor_key: tuple, epochs: i
             pred = model(xb)
             loss = loss_fn(pred, yb)
             loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             optimizer.step()
             train_loss += loss.item() * xb.size(0)
         train_loss /= max(1, len(train_ds))
 
-        if epoch % 5 == 0 or epoch == epochs - 1:
-            model.eval()
-            val_loss = 0.0
-            with torch.no_grad():
-                for xb, yb in val_loader:
-                    val_loss += loss_fn(model(xb), yb).item() * xb.size(0)
-            val_loss /= max(1, len(val_ds))
-            print(f"    Epoch {epoch:02d} | Train Loss: {train_loss:.4f} | Val Loss: {val_loss:.4f}")
+        model.eval()
+        val_loss, mae_sum, n = 0.0, 0.0, 0
+        with torch.no_grad():
+            for xb, yb in val_loader:
+                pred = model(xb)
+                val_loss += loss_fn(pred, yb).item() * xb.size(0)
+                pred_dn = dataset.denormalize(pred.numpy())
+                yb_dn = dataset.denormalize(yb.numpy())
+                mae_sum += np.abs(pred_dn - yb_dn).sum()
+                n += pred_dn.size
+        val_loss /= max(1, len(val_ds))
+        val_mae = mae_sum / max(1, n)
 
+        if epoch % 5 == 0 or epoch == epochs - 1:
+            print(f"    Epoch {epoch:02d} | Train Loss: {train_loss:.4f} | Val Loss: {val_loss:.4f} | Val MAE: {val_mae:.3f}")
+
+        if val_mae < best_val_mae - 1e-6:
+            best_val_mae = val_mae
+            best_epoch = epoch
+            best_state = copy.deepcopy(model.state_dict())
+            epochs_since_improve = 0
+        else:
+            epochs_since_improve += 1
+            if epochs_since_improve >= EARLY_STOP_PATIENCE:
+                print(f"    Early stopped at epoch {epoch} (no improvement for {EARLY_STOP_PATIENCE} epochs)")
+                break
+
+    model.load_state_dict(best_state)
+    print(f"    Using best checkpoint from epoch {best_epoch} (val_mae={best_val_mae:.3f})")
     return model, dataset
 
 # ---------------------------------------------------------------------------
@@ -450,6 +480,57 @@ def to_module3_cargo_format(corridor_key: tuple, forecast_tonnage: np.ndarray, s
             "due_date": due_date,
         })
     return cargos
+
+def save_forecasted_cargos(cargos: list, filepath: str = "data/forecasted_cargos.json"):
+    """
+    Saves Module 2's 14-day forecasted cargo objects to disk for Module 3 consumption.
+    Converts pandas Timestamp objects to ISO date strings.
+    """
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    serializable_cargos = []
+    for c in cargos:
+        item = dict(c)
+        if isinstance(item.get("due_date"), (pd.Timestamp, pd.DatetimeIndex)):
+            item["due_date"] = item["due_date"].strftime("%Y-%m-%d")
+        serializable_cargos.append(item)
+        
+    with open(filepath, "w") as f:
+        json.dump(serializable_cargos, f, indent=2)
+    print(f"💾 Exported {len(serializable_cargos)} forecasted cargos to {filepath}")
+
+def generate_module2_cargos(n_corridors: int = 8, epochs: int = MAX_EPOCHS) -> list:
+    """
+    Programmatic entrypoint to run Module 2 and return forecasted cargos directly.
+    """
+    annual_df = load_annual_dataset()
+    monthly_df = load_monthly_dataset()
+    recent_df = load_recent_dataset()
+
+    growth_rates = fit_commodity_growth_rates(annual_df, recent_df)
+    seasonal_index = fit_monthly_seasonal_index(monthly_df)
+    corridors = fetch_chennai_corridors_from_graph(n_corridors=n_corridors)
+    series_df = synthesize_corridor_series(corridors, growth_rates, seasonal_index, n_years=3)
+
+    all_cargos = []
+    for origin, dest, commodity, _ in corridors:
+        key = (origin, dest, commodity)
+        model, dataset = train_corridor_model(series_df, key, epochs=epochs)
+        if model is None:
+            continue
+        
+        model.eval()
+        last_window = torch.from_numpy(dataset.X[-1:]).float()
+        with torch.no_grad():
+            pred_norm = model(last_window).numpy().flatten()
+        forecast = dataset.denormalize(pred_norm)
+
+        last_date = series_df["date"].max()
+        cargos = to_module3_cargo_format(key, forecast, last_date)
+        all_cargos.extend(cargos)
+
+    save_forecasted_cargos(all_cargos)
+    return all_cargos
+
 
 # ---------------------------------------------------------------------------
 # Main Pipeline Entrypoint
@@ -484,11 +565,10 @@ def main():
     for origin, dest, commodity, _ in corridors:
         key = (origin, dest, commodity)
         print(f"\n▶ Training Forecaster for: {origin} -> {dest} [{commodity}]")
-        model, dataset = train_corridor_model(series_df, key, epochs=15)
+        model, dataset = train_corridor_model(series_df, key, epochs=MAX_EPOCHS)
         if model is None:
             continue
         
-        # Predict 14-day demand window
         model.eval()
         last_window = torch.from_numpy(dataset.X[-1:]).float()
         with torch.no_grad():
@@ -503,7 +583,8 @@ def main():
     print("\n" + "=" * 70)
     print(f"✅ COMPLETE: Emitted {len(all_cargos)} cargo allocations ready for Module 3.")
     if all_cargos:
-        print("Sample Cargo Payload for Optimization Solver:", all_cargos[0])
+        print("Sample Cargo Payload for Optimization Solver:\n", all_cargos[0])
+    save_forecasted_cargos(all_cargos)
     print("=" * 70)
 
 if __name__ == "__main__":
