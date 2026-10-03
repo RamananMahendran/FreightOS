@@ -1,109 +1,10 @@
 [
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20260921",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732620",
-    "commodity": "Coal",
-    "weight": 11.63,
-    "priority": 0.8,
-    "due_date": "2026-09-21"
-  },
-  {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20260922",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732620",
-    "commodity": "Coal",
-    "weight": 12.11,
-    "priority": 0.8,
-    "due_date": "2026-09-22"
-  },
-  {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20260923",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732620",
-    "commodity": "Coal",
-    "weight": 12.01,
-    "priority": 0.8,
-    "due_date": "2026-09-23"
-  },
-  {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20260924",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732620",
-    "commodity": "Coal",
-    "weight": 12.52,
-    "priority": 0.8,
-    "due_date": "2026-09-24"
-  },
-  {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20260925",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732620",
-    "commodity": "Coal",
-    "weight": 12.36,
-    "priority": 0.8,
-    "due_date": "2026-09-25"
-  },
-  {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20260926",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732620",
-    "commodity": "Coal",
-    "weight": 9.32,
-    "priority": 0.8,
-    "due_date": "2026-09-26"
-  },
-  {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20260927",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732620",
-    "commodity": "Coal",
-    "weight": 8.82,
-    "priority": 0.8,
-    "due_date": "2026-09-27"
-  },
-  {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20260928",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732620",
-    "commodity": "Coal",
-    "weight": 11.36,
-    "priority": 0.8,
-    "due_date": "2026-09-28"
-  },
-  {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20260929",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732620",
-    "commodity": "Coal",
-    "weight": 11.88,
-    "priority": 0.8,
-    "due_date": "2026-09-29"
-  },
-  {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20260930",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732620",
-    "commodity": "Coal",
-    "weight": 11.82,
-    "priority": 0.8,
-    "due_date": "2026-09-30"
-  },
-  {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261001",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732620",
-    "commodity": "Coal",
-    "weight": 12.19,
-    "priority": 0.8,
-    "due_date": "2026-10-01"
-  },
-  {
     "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261002",
     "origin": "OSM_NODE_261716087",
     "destination": "OSM_NODE_5311732620",
     "commodity": "Coal",
-    "weight": 11.78,
+    "weight": 13.36,
     "priority": 0.8,
     "due_date": "2026-10-02"
   },
@@ -112,7 +13,7 @@
     "origin": "OSM_NODE_261716087",
     "destination": "OSM_NODE_5311732620",
     "commodity": "Coal",
-    "weight": 9.33,
+    "weight": 9.85,
     "priority": 0.8,
     "due_date": "2026-10-03"
   },
@@ -121,115 +22,115 @@
     "origin": "OSM_NODE_261716087",
     "destination": "OSM_NODE_5311732620",
     "commodity": "Coal",
-    "weight": 8.92,
+    "weight": 9.83,
     "priority": 0.8,
     "due_date": "2026-10-04"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20260921",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261005",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Others",
-    "weight": 1.49,
-    "priority": 0.5,
-    "due_date": "2026-09-21"
+    "destination": "OSM_NODE_5311732620",
+    "commodity": "Coal",
+    "weight": 13.65,
+    "priority": 0.8,
+    "due_date": "2026-10-05"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20260922",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261006",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Others",
-    "weight": 1.44,
-    "priority": 0.5,
-    "due_date": "2026-09-22"
+    "destination": "OSM_NODE_5311732620",
+    "commodity": "Coal",
+    "weight": 14.04,
+    "priority": 0.8,
+    "due_date": "2026-10-06"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20260923",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261007",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Others",
-    "weight": 1.37,
-    "priority": 0.5,
-    "due_date": "2026-09-23"
+    "destination": "OSM_NODE_5311732620",
+    "commodity": "Coal",
+    "weight": 13.56,
+    "priority": 0.8,
+    "due_date": "2026-10-07"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20260924",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261008",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Others",
-    "weight": 1.43,
-    "priority": 0.5,
-    "due_date": "2026-09-24"
+    "destination": "OSM_NODE_5311732620",
+    "commodity": "Coal",
+    "weight": 13.47,
+    "priority": 0.8,
+    "due_date": "2026-10-08"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20260925",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261009",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Others",
-    "weight": 1.41,
-    "priority": 0.5,
-    "due_date": "2026-09-25"
+    "destination": "OSM_NODE_5311732620",
+    "commodity": "Coal",
+    "weight": 13.41,
+    "priority": 0.8,
+    "due_date": "2026-10-09"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20260926",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261010",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Others",
-    "weight": 0.98,
-    "priority": 0.5,
-    "due_date": "2026-09-26"
+    "destination": "OSM_NODE_5311732620",
+    "commodity": "Coal",
+    "weight": 9.63,
+    "priority": 0.8,
+    "due_date": "2026-10-10"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20260927",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261011",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Others",
-    "weight": 1.12,
-    "priority": 0.5,
-    "due_date": "2026-09-27"
+    "destination": "OSM_NODE_5311732620",
+    "commodity": "Coal",
+    "weight": 9.86,
+    "priority": 0.8,
+    "due_date": "2026-10-11"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20260928",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261012",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Others",
-    "weight": 1.56,
-    "priority": 0.5,
-    "due_date": "2026-09-28"
+    "destination": "OSM_NODE_5311732620",
+    "commodity": "Coal",
+    "weight": 13.77,
+    "priority": 0.8,
+    "due_date": "2026-10-12"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20260929",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261013",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Others",
-    "weight": 1.52,
-    "priority": 0.5,
-    "due_date": "2026-09-29"
+    "destination": "OSM_NODE_5311732620",
+    "commodity": "Coal",
+    "weight": 14.03,
+    "priority": 0.8,
+    "due_date": "2026-10-13"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20260930",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261014",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Others",
-    "weight": 1.4,
-    "priority": 0.5,
-    "due_date": "2026-09-30"
+    "destination": "OSM_NODE_5311732620",
+    "commodity": "Coal",
+    "weight": 13.07,
+    "priority": 0.8,
+    "due_date": "2026-10-14"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261001",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732620_Coal_20261015",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Others",
-    "weight": 1.47,
-    "priority": 0.5,
-    "due_date": "2026-10-01"
+    "destination": "OSM_NODE_5311732620",
+    "commodity": "Coal",
+    "weight": 13.45,
+    "priority": 0.8,
+    "due_date": "2026-10-15"
   },
   {
     "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261002",
     "origin": "OSM_NODE_261716087",
     "destination": "OSM_NODE_5311732624",
     "commodity": "Others",
-    "weight": 1.42,
+    "weight": 1.51,
     "priority": 0.5,
     "due_date": "2026-10-02"
   },
@@ -238,7 +139,7 @@
     "origin": "OSM_NODE_261716087",
     "destination": "OSM_NODE_5311732624",
     "commodity": "Others",
-    "weight": 1.0,
+    "weight": 1.09,
     "priority": 0.5,
     "due_date": "2026-10-03"
   },
@@ -247,115 +148,115 @@
     "origin": "OSM_NODE_261716087",
     "destination": "OSM_NODE_5311732624",
     "commodity": "Others",
-    "weight": 1.11,
+    "weight": 1.05,
     "priority": 0.5,
     "due_date": "2026-10-04"
   },
   {
-    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20260921",
-    "origin": "OSM_NODE_2605993507",
-    "destination": "OSM_NODE_261716087",
-    "commodity": "Coal",
-    "weight": 12.91,
-    "priority": 0.8,
-    "due_date": "2026-09-21"
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261005",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Others",
+    "weight": 1.41,
+    "priority": 0.5,
+    "due_date": "2026-10-05"
   },
   {
-    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20260922",
-    "origin": "OSM_NODE_2605993507",
-    "destination": "OSM_NODE_261716087",
-    "commodity": "Coal",
-    "weight": 13.06,
-    "priority": 0.8,
-    "due_date": "2026-09-22"
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261006",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Others",
+    "weight": 1.48,
+    "priority": 0.5,
+    "due_date": "2026-10-06"
   },
   {
-    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20260923",
-    "origin": "OSM_NODE_2605993507",
-    "destination": "OSM_NODE_261716087",
-    "commodity": "Coal",
-    "weight": 12.63,
-    "priority": 0.8,
-    "due_date": "2026-09-23"
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261007",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Others",
+    "weight": 1.39,
+    "priority": 0.5,
+    "due_date": "2026-10-07"
   },
   {
-    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20260924",
-    "origin": "OSM_NODE_2605993507",
-    "destination": "OSM_NODE_261716087",
-    "commodity": "Coal",
-    "weight": 13.69,
-    "priority": 0.8,
-    "due_date": "2026-09-24"
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261008",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Others",
+    "weight": 1.48,
+    "priority": 0.5,
+    "due_date": "2026-10-08"
   },
   {
-    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20260925",
-    "origin": "OSM_NODE_2605993507",
-    "destination": "OSM_NODE_261716087",
-    "commodity": "Coal",
-    "weight": 12.6,
-    "priority": 0.8,
-    "due_date": "2026-09-25"
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261009",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Others",
+    "weight": 1.52,
+    "priority": 0.5,
+    "due_date": "2026-10-09"
   },
   {
-    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20260926",
-    "origin": "OSM_NODE_2605993507",
-    "destination": "OSM_NODE_261716087",
-    "commodity": "Coal",
-    "weight": 9.6,
-    "priority": 0.8,
-    "due_date": "2026-09-26"
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261010",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Others",
+    "weight": 1.09,
+    "priority": 0.5,
+    "due_date": "2026-10-10"
   },
   {
-    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20260927",
-    "origin": "OSM_NODE_2605993507",
-    "destination": "OSM_NODE_261716087",
-    "commodity": "Coal",
-    "weight": 9.7,
-    "priority": 0.8,
-    "due_date": "2026-09-27"
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261011",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Others",
+    "weight": 1.03,
+    "priority": 0.5,
+    "due_date": "2026-10-11"
   },
   {
-    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20260928",
-    "origin": "OSM_NODE_2605993507",
-    "destination": "OSM_NODE_261716087",
-    "commodity": "Coal",
-    "weight": 13.0,
-    "priority": 0.8,
-    "due_date": "2026-09-28"
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261012",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Others",
+    "weight": 1.42,
+    "priority": 0.5,
+    "due_date": "2026-10-12"
   },
   {
-    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20260929",
-    "origin": "OSM_NODE_2605993507",
-    "destination": "OSM_NODE_261716087",
-    "commodity": "Coal",
-    "weight": 12.73,
-    "priority": 0.8,
-    "due_date": "2026-09-29"
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261013",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Others",
+    "weight": 1.5,
+    "priority": 0.5,
+    "due_date": "2026-10-13"
   },
   {
-    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20260930",
-    "origin": "OSM_NODE_2605993507",
-    "destination": "OSM_NODE_261716087",
-    "commodity": "Coal",
-    "weight": 12.59,
-    "priority": 0.8,
-    "due_date": "2026-09-30"
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261014",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Others",
+    "weight": 1.38,
+    "priority": 0.5,
+    "due_date": "2026-10-14"
   },
   {
-    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261001",
-    "origin": "OSM_NODE_2605993507",
-    "destination": "OSM_NODE_261716087",
-    "commodity": "Coal",
-    "weight": 13.28,
-    "priority": 0.8,
-    "due_date": "2026-10-01"
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732624_Others_20261015",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Others",
+    "weight": 1.48,
+    "priority": 0.5,
+    "due_date": "2026-10-15"
   },
   {
     "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261002",
     "origin": "OSM_NODE_2605993507",
     "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 12.57,
+    "weight": 12.95,
     "priority": 0.8,
     "due_date": "2026-10-02"
   },
@@ -364,7 +265,7 @@
     "origin": "OSM_NODE_2605993507",
     "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 9.68,
+    "weight": 9.27,
     "priority": 0.8,
     "due_date": "2026-10-03"
   },
@@ -373,115 +274,115 @@
     "origin": "OSM_NODE_2605993507",
     "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 9.81,
+    "weight": 9.29,
     "priority": 0.8,
     "due_date": "2026-10-04"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20260921",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732623",
+    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261005",
+    "origin": "OSM_NODE_2605993507",
+    "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 11.98,
+    "weight": 12.28,
     "priority": 0.8,
-    "due_date": "2026-09-21"
+    "due_date": "2026-10-05"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20260922",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732623",
+    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261006",
+    "origin": "OSM_NODE_2605993507",
+    "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 12.7,
+    "weight": 12.68,
     "priority": 0.8,
-    "due_date": "2026-09-22"
+    "due_date": "2026-10-06"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20260923",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732623",
+    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261007",
+    "origin": "OSM_NODE_2605993507",
+    "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 12.35,
+    "weight": 12.43,
     "priority": 0.8,
-    "due_date": "2026-09-23"
+    "due_date": "2026-10-07"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20260924",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732623",
+    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261008",
+    "origin": "OSM_NODE_2605993507",
+    "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 12.42,
+    "weight": 13.37,
     "priority": 0.8,
-    "due_date": "2026-09-24"
+    "due_date": "2026-10-08"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20260925",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732623",
+    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261009",
+    "origin": "OSM_NODE_2605993507",
+    "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 11.49,
+    "weight": 13.01,
     "priority": 0.8,
-    "due_date": "2026-09-25"
+    "due_date": "2026-10-09"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20260926",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732623",
+    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261010",
+    "origin": "OSM_NODE_2605993507",
+    "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 9.38,
+    "weight": 9.41,
     "priority": 0.8,
-    "due_date": "2026-09-26"
+    "due_date": "2026-10-10"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20260927",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732623",
+    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261011",
+    "origin": "OSM_NODE_2605993507",
+    "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 9.79,
+    "weight": 8.98,
     "priority": 0.8,
-    "due_date": "2026-09-27"
+    "due_date": "2026-10-11"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20260928",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732623",
+    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261012",
+    "origin": "OSM_NODE_2605993507",
+    "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 12.05,
+    "weight": 11.95,
     "priority": 0.8,
-    "due_date": "2026-09-28"
+    "due_date": "2026-10-12"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20260929",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732623",
+    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261013",
+    "origin": "OSM_NODE_2605993507",
+    "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 12.2,
+    "weight": 12.84,
     "priority": 0.8,
-    "due_date": "2026-09-29"
+    "due_date": "2026-10-13"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20260930",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732623",
+    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261014",
+    "origin": "OSM_NODE_2605993507",
+    "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 12.41,
+    "weight": 12.75,
     "priority": 0.8,
-    "due_date": "2026-09-30"
+    "due_date": "2026-10-14"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261001",
-    "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5311732623",
+    "id": "OSM_NODE_2605993507_OSM_NODE_261716087_Coal_20261015",
+    "origin": "OSM_NODE_2605993507",
+    "destination": "OSM_NODE_261716087",
     "commodity": "Coal",
-    "weight": 12.27,
+    "weight": 13.34,
     "priority": 0.8,
-    "due_date": "2026-10-01"
+    "due_date": "2026-10-15"
   },
   {
     "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261002",
     "origin": "OSM_NODE_261716087",
     "destination": "OSM_NODE_5311732623",
     "commodity": "Coal",
-    "weight": 11.64,
+    "weight": 12.62,
     "priority": 0.8,
     "due_date": "2026-10-02"
   },
@@ -490,7 +391,7 @@
     "origin": "OSM_NODE_261716087",
     "destination": "OSM_NODE_5311732623",
     "commodity": "Coal",
-    "weight": 9.11,
+    "weight": 9.82,
     "priority": 0.8,
     "due_date": "2026-10-03"
   },
@@ -499,115 +400,115 @@
     "origin": "OSM_NODE_261716087",
     "destination": "OSM_NODE_5311732623",
     "commodity": "Coal",
-    "weight": 9.72,
+    "weight": 9.06,
     "priority": 0.8,
     "due_date": "2026-10-04"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20260921",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261005",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5274094702",
-    "commodity": "Fertilizers",
-    "weight": 1.26,
-    "priority": 0.5,
-    "due_date": "2026-09-21"
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Coal",
+    "weight": 12.16,
+    "priority": 0.8,
+    "due_date": "2026-10-05"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20260922",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261006",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5274094702",
-    "commodity": "Fertilizers",
-    "weight": 1.32,
-    "priority": 0.5,
-    "due_date": "2026-09-22"
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Coal",
+    "weight": 13.3,
+    "priority": 0.8,
+    "due_date": "2026-10-06"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20260923",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261007",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5274094702",
-    "commodity": "Fertilizers",
-    "weight": 1.29,
-    "priority": 0.5,
-    "due_date": "2026-09-23"
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Coal",
+    "weight": 12.96,
+    "priority": 0.8,
+    "due_date": "2026-10-07"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20260924",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261008",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5274094702",
-    "commodity": "Fertilizers",
-    "weight": 1.31,
-    "priority": 0.5,
-    "due_date": "2026-09-24"
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Coal",
+    "weight": 13.24,
+    "priority": 0.8,
+    "due_date": "2026-10-08"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20260925",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261009",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5274094702",
-    "commodity": "Fertilizers",
-    "weight": 1.3,
-    "priority": 0.5,
-    "due_date": "2026-09-25"
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Coal",
+    "weight": 12.9,
+    "priority": 0.8,
+    "due_date": "2026-10-09"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20260926",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261010",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5274094702",
-    "commodity": "Fertilizers",
-    "weight": 0.98,
-    "priority": 0.5,
-    "due_date": "2026-09-26"
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Coal",
+    "weight": 10.13,
+    "priority": 0.8,
+    "due_date": "2026-10-10"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20260927",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261011",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5274094702",
-    "commodity": "Fertilizers",
-    "weight": 0.97,
-    "priority": 0.5,
-    "due_date": "2026-09-27"
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Coal",
+    "weight": 9.41,
+    "priority": 0.8,
+    "due_date": "2026-10-11"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20260928",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261012",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5274094702",
-    "commodity": "Fertilizers",
-    "weight": 1.28,
-    "priority": 0.5,
-    "due_date": "2026-09-28"
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Coal",
+    "weight": 12.42,
+    "priority": 0.8,
+    "due_date": "2026-10-12"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20260929",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261013",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5274094702",
-    "commodity": "Fertilizers",
-    "weight": 1.34,
-    "priority": 0.5,
-    "due_date": "2026-09-29"
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Coal",
+    "weight": 13.61,
+    "priority": 0.8,
+    "due_date": "2026-10-13"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20260930",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261014",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5274094702",
-    "commodity": "Fertilizers",
-    "weight": 1.27,
-    "priority": 0.5,
-    "due_date": "2026-09-30"
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Coal",
+    "weight": 13.54,
+    "priority": 0.8,
+    "due_date": "2026-10-14"
   },
   {
-    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261001",
+    "id": "OSM_NODE_261716087_OSM_NODE_5311732623_Coal_20261015",
     "origin": "OSM_NODE_261716087",
-    "destination": "OSM_NODE_5274094702",
-    "commodity": "Fertilizers",
-    "weight": 1.35,
-    "priority": 0.5,
-    "due_date": "2026-10-01"
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Coal",
+    "weight": 13.7,
+    "priority": 0.8,
+    "due_date": "2026-10-15"
   },
   {
     "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261002",
     "origin": "OSM_NODE_261716087",
     "destination": "OSM_NODE_5274094702",
     "commodity": "Fertilizers",
-    "weight": 1.31,
+    "weight": 1.41,
     "priority": 0.5,
     "due_date": "2026-10-02"
   },
@@ -616,7 +517,7 @@
     "origin": "OSM_NODE_261716087",
     "destination": "OSM_NODE_5274094702",
     "commodity": "Fertilizers",
-    "weight": 1.02,
+    "weight": 1.11,
     "priority": 0.5,
     "due_date": "2026-10-03"
   },
@@ -630,110 +531,110 @@
     "due_date": "2026-10-04"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20260921",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Container Service",
+    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261005",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5274094702",
+    "commodity": "Fertilizers",
+    "weight": 1.33,
+    "priority": 0.5,
+    "due_date": "2026-10-05"
+  },
+  {
+    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261006",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5274094702",
+    "commodity": "Fertilizers",
+    "weight": 1.46,
+    "priority": 0.5,
+    "due_date": "2026-10-06"
+  },
+  {
+    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261007",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5274094702",
+    "commodity": "Fertilizers",
     "weight": 1.39,
     "priority": 0.5,
-    "due_date": "2026-09-21"
+    "due_date": "2026-10-07"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20260922",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Container Service",
-    "weight": 1.43,
+    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261008",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5274094702",
+    "commodity": "Fertilizers",
+    "weight": 1.37,
     "priority": 0.5,
-    "due_date": "2026-09-22"
+    "due_date": "2026-10-08"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20260923",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Container Service",
-    "weight": 1.38,
-    "priority": 0.5,
-    "due_date": "2026-09-23"
-  },
-  {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20260924",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Container Service",
-    "weight": 1.46,
-    "priority": 0.5,
-    "due_date": "2026-09-24"
-  },
-  {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20260925",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Container Service",
-    "weight": 1.46,
-    "priority": 0.5,
-    "due_date": "2026-09-25"
-  },
-  {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20260926",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Container Service",
-    "weight": 1.03,
-    "priority": 0.5,
-    "due_date": "2026-09-26"
-  },
-  {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20260927",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Container Service",
-    "weight": 0.99,
-    "priority": 0.5,
-    "due_date": "2026-09-27"
-  },
-  {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20260928",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Container Service",
-    "weight": 1.35,
-    "priority": 0.5,
-    "due_date": "2026-09-28"
-  },
-  {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20260929",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Container Service",
+    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261009",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5274094702",
+    "commodity": "Fertilizers",
     "weight": 1.42,
     "priority": 0.5,
-    "due_date": "2026-09-29"
+    "due_date": "2026-10-09"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20260930",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Container Service",
-    "weight": 1.36,
+    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261010",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5274094702",
+    "commodity": "Fertilizers",
+    "weight": 1.13,
     "priority": 0.5,
-    "due_date": "2026-09-30"
+    "due_date": "2026-10-10"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261001",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Container Service",
-    "weight": 1.4,
+    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261011",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5274094702",
+    "commodity": "Fertilizers",
+    "weight": 0.98,
     "priority": 0.5,
-    "due_date": "2026-10-01"
+    "due_date": "2026-10-11"
+  },
+  {
+    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261012",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5274094702",
+    "commodity": "Fertilizers",
+    "weight": 1.34,
+    "priority": 0.5,
+    "due_date": "2026-10-12"
+  },
+  {
+    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261013",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5274094702",
+    "commodity": "Fertilizers",
+    "weight": 1.49,
+    "priority": 0.5,
+    "due_date": "2026-10-13"
+  },
+  {
+    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261014",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5274094702",
+    "commodity": "Fertilizers",
+    "weight": 1.38,
+    "priority": 0.5,
+    "due_date": "2026-10-14"
+  },
+  {
+    "id": "OSM_NODE_261716087_OSM_NODE_5274094702_Fertilizers_20261015",
+    "origin": "OSM_NODE_261716087",
+    "destination": "OSM_NODE_5274094702",
+    "commodity": "Fertilizers",
+    "weight": 1.37,
+    "priority": 0.5,
+    "due_date": "2026-10-15"
   },
   {
     "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261002",
     "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732624",
     "commodity": "Container Service",
-    "weight": 1.42,
+    "weight": 1.24,
     "priority": 0.5,
     "due_date": "2026-10-02"
   },
@@ -742,7 +643,7 @@
     "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732624",
     "commodity": "Container Service",
-    "weight": 0.99,
+    "weight": 0.95,
     "priority": 0.5,
     "due_date": "2026-10-03"
   },
@@ -751,115 +652,115 @@
     "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732624",
     "commodity": "Container Service",
-    "weight": 0.98,
+    "weight": 1.02,
     "priority": 0.5,
     "due_date": "2026-10-04"
   },
   {
-    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20260921",
-    "origin": "OSM_NODE_3725756379",
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261005",
+    "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732624",
-    "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.95,
-    "priority": 0.8,
-    "due_date": "2026-09-21"
+    "commodity": "Container Service",
+    "weight": 1.34,
+    "priority": 0.5,
+    "due_date": "2026-10-05"
   },
   {
-    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20260922",
-    "origin": "OSM_NODE_3725756379",
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261006",
+    "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732624",
-    "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.98,
-    "priority": 0.8,
-    "due_date": "2026-09-22"
+    "commodity": "Container Service",
+    "weight": 1.37,
+    "priority": 0.5,
+    "due_date": "2026-10-06"
   },
   {
-    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20260923",
-    "origin": "OSM_NODE_3725756379",
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261007",
+    "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732624",
-    "commodity": "Petroleum, Oil and Lubricant",
+    "commodity": "Container Service",
+    "weight": 1.3,
+    "priority": 0.5,
+    "due_date": "2026-10-07"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261008",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Container Service",
+    "weight": 1.31,
+    "priority": 0.5,
+    "due_date": "2026-10-08"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261009",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Container Service",
+    "weight": 1.23,
+    "priority": 0.5,
+    "due_date": "2026-10-09"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261010",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Container Service",
+    "weight": 0.96,
+    "priority": 0.5,
+    "due_date": "2026-10-10"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261011",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Container Service",
     "weight": 0.99,
-    "priority": 0.8,
-    "due_date": "2026-09-23"
+    "priority": 0.5,
+    "due_date": "2026-10-11"
   },
   {
-    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20260924",
-    "origin": "OSM_NODE_3725756379",
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261012",
+    "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732624",
-    "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.98,
-    "priority": 0.8,
-    "due_date": "2026-09-24"
+    "commodity": "Container Service",
+    "weight": 1.35,
+    "priority": 0.5,
+    "due_date": "2026-10-12"
   },
   {
-    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20260925",
-    "origin": "OSM_NODE_3725756379",
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261013",
+    "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732624",
-    "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.9,
-    "priority": 0.8,
-    "due_date": "2026-09-25"
+    "commodity": "Container Service",
+    "weight": 1.39,
+    "priority": 0.5,
+    "due_date": "2026-10-13"
   },
   {
-    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20260926",
-    "origin": "OSM_NODE_3725756379",
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261014",
+    "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732624",
-    "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.67,
-    "priority": 0.8,
-    "due_date": "2026-09-26"
+    "commodity": "Container Service",
+    "weight": 1.3,
+    "priority": 0.5,
+    "due_date": "2026-10-14"
   },
   {
-    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20260927",
-    "origin": "OSM_NODE_3725756379",
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732624_Container Service_20261015",
+    "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732624",
-    "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.7,
-    "priority": 0.8,
-    "due_date": "2026-09-27"
-  },
-  {
-    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20260928",
-    "origin": "OSM_NODE_3725756379",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.93,
-    "priority": 0.8,
-    "due_date": "2026-09-28"
-  },
-  {
-    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20260929",
-    "origin": "OSM_NODE_3725756379",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.97,
-    "priority": 0.8,
-    "due_date": "2026-09-29"
-  },
-  {
-    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20260930",
-    "origin": "OSM_NODE_3725756379",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.97,
-    "priority": 0.8,
-    "due_date": "2026-09-30"
-  },
-  {
-    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261001",
-    "origin": "OSM_NODE_3725756379",
-    "destination": "OSM_NODE_5311732624",
-    "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.99,
-    "priority": 0.8,
-    "due_date": "2026-10-01"
+    "commodity": "Container Service",
+    "weight": 1.34,
+    "priority": 0.5,
+    "due_date": "2026-10-15"
   },
   {
     "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261002",
     "origin": "OSM_NODE_3725756379",
     "destination": "OSM_NODE_5311732624",
     "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.92,
+    "weight": 1.06,
     "priority": 0.8,
     "due_date": "2026-10-02"
   },
@@ -868,7 +769,7 @@
     "origin": "OSM_NODE_3725756379",
     "destination": "OSM_NODE_5311732624",
     "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.68,
+    "weight": 0.81,
     "priority": 0.8,
     "due_date": "2026-10-03"
   },
@@ -877,115 +778,115 @@
     "origin": "OSM_NODE_3725756379",
     "destination": "OSM_NODE_5311732624",
     "commodity": "Petroleum, Oil and Lubricant",
-    "weight": 0.71,
+    "weight": 0.83,
     "priority": 0.8,
     "due_date": "2026-10-04"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20260921",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732623",
-    "commodity": "Cement",
-    "weight": 1.72,
-    "priority": 0.5,
-    "due_date": "2026-09-21"
+    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261005",
+    "origin": "OSM_NODE_3725756379",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Petroleum, Oil and Lubricant",
+    "weight": 1.07,
+    "priority": 0.8,
+    "due_date": "2026-10-05"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20260922",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732623",
-    "commodity": "Cement",
-    "weight": 1.79,
-    "priority": 0.5,
-    "due_date": "2026-09-22"
+    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261006",
+    "origin": "OSM_NODE_3725756379",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Petroleum, Oil and Lubricant",
+    "weight": 1.1,
+    "priority": 0.8,
+    "due_date": "2026-10-06"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20260923",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732623",
-    "commodity": "Cement",
-    "weight": 1.73,
-    "priority": 0.5,
-    "due_date": "2026-09-23"
+    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261007",
+    "origin": "OSM_NODE_3725756379",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Petroleum, Oil and Lubricant",
+    "weight": 1.07,
+    "priority": 0.8,
+    "due_date": "2026-10-07"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20260924",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732623",
-    "commodity": "Cement",
-    "weight": 1.84,
-    "priority": 0.5,
-    "due_date": "2026-09-24"
+    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261008",
+    "origin": "OSM_NODE_3725756379",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Petroleum, Oil and Lubricant",
+    "weight": 1.13,
+    "priority": 0.8,
+    "due_date": "2026-10-08"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20260925",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732623",
-    "commodity": "Cement",
-    "weight": 1.92,
-    "priority": 0.5,
-    "due_date": "2026-09-25"
+    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261009",
+    "origin": "OSM_NODE_3725756379",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Petroleum, Oil and Lubricant",
+    "weight": 1.08,
+    "priority": 0.8,
+    "due_date": "2026-10-09"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20260926",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732623",
-    "commodity": "Cement",
-    "weight": 1.6,
-    "priority": 0.5,
-    "due_date": "2026-09-26"
+    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261010",
+    "origin": "OSM_NODE_3725756379",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Petroleum, Oil and Lubricant",
+    "weight": 0.82,
+    "priority": 0.8,
+    "due_date": "2026-10-10"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20260927",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732623",
-    "commodity": "Cement",
-    "weight": 1.36,
-    "priority": 0.5,
-    "due_date": "2026-09-27"
+    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261011",
+    "origin": "OSM_NODE_3725756379",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Petroleum, Oil and Lubricant",
+    "weight": 0.83,
+    "priority": 0.8,
+    "due_date": "2026-10-11"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20260928",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732623",
-    "commodity": "Cement",
-    "weight": 1.91,
-    "priority": 0.5,
-    "due_date": "2026-09-28"
+    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261012",
+    "origin": "OSM_NODE_3725756379",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Petroleum, Oil and Lubricant",
+    "weight": 1.06,
+    "priority": 0.8,
+    "due_date": "2026-10-12"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20260929",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732623",
-    "commodity": "Cement",
-    "weight": 2.12,
-    "priority": 0.5,
-    "due_date": "2026-09-29"
+    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261013",
+    "origin": "OSM_NODE_3725756379",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Petroleum, Oil and Lubricant",
+    "weight": 1.1,
+    "priority": 0.8,
+    "due_date": "2026-10-13"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20260930",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732623",
-    "commodity": "Cement",
-    "weight": 1.87,
-    "priority": 0.5,
-    "due_date": "2026-09-30"
+    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261014",
+    "origin": "OSM_NODE_3725756379",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Petroleum, Oil and Lubricant",
+    "weight": 1.05,
+    "priority": 0.8,
+    "due_date": "2026-10-14"
   },
   {
-    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261001",
-    "origin": "OSM_NODE_2048191334",
-    "destination": "OSM_NODE_5311732623",
-    "commodity": "Cement",
-    "weight": 2.06,
-    "priority": 0.5,
-    "due_date": "2026-10-01"
+    "id": "OSM_NODE_3725756379_OSM_NODE_5311732624_Petroleum, Oil and Lubricant_20261015",
+    "origin": "OSM_NODE_3725756379",
+    "destination": "OSM_NODE_5311732624",
+    "commodity": "Petroleum, Oil and Lubricant",
+    "weight": 1.15,
+    "priority": 0.8,
+    "due_date": "2026-10-15"
   },
   {
     "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261002",
     "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732623",
     "commodity": "Cement",
-    "weight": 2.25,
+    "weight": 1.93,
     "priority": 0.5,
     "due_date": "2026-10-02"
   },
@@ -994,7 +895,7 @@
     "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732623",
     "commodity": "Cement",
-    "weight": 1.79,
+    "weight": 1.58,
     "priority": 0.5,
     "due_date": "2026-10-03"
   },
@@ -1003,8 +904,107 @@
     "origin": "OSM_NODE_2048191334",
     "destination": "OSM_NODE_5311732623",
     "commodity": "Cement",
-    "weight": 1.61,
+    "weight": 1.69,
     "priority": 0.5,
     "due_date": "2026-10-04"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261005",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Cement",
+    "weight": 2.11,
+    "priority": 0.5,
+    "due_date": "2026-10-05"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261006",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Cement",
+    "weight": 2.28,
+    "priority": 0.5,
+    "due_date": "2026-10-06"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261007",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Cement",
+    "weight": 2.34,
+    "priority": 0.5,
+    "due_date": "2026-10-07"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261008",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Cement",
+    "weight": 2.23,
+    "priority": 0.5,
+    "due_date": "2026-10-08"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261009",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Cement",
+    "weight": 1.89,
+    "priority": 0.5,
+    "due_date": "2026-10-09"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261010",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Cement",
+    "weight": 1.55,
+    "priority": 0.5,
+    "due_date": "2026-10-10"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261011",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Cement",
+    "weight": 1.66,
+    "priority": 0.5,
+    "due_date": "2026-10-11"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261012",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Cement",
+    "weight": 2.11,
+    "priority": 0.5,
+    "due_date": "2026-10-12"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261013",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Cement",
+    "weight": 2.34,
+    "priority": 0.5,
+    "due_date": "2026-10-13"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261014",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Cement",
+    "weight": 2.35,
+    "priority": 0.5,
+    "due_date": "2026-10-14"
+  },
+  {
+    "id": "OSM_NODE_2048191334_OSM_NODE_5311732623_Cement_20261015",
+    "origin": "OSM_NODE_2048191334",
+    "destination": "OSM_NODE_5311732623",
+    "commodity": "Cement",
+    "weight": 2.2,
+    "priority": 0.5,
+    "due_date": "2026-10-15"
   }
 ]

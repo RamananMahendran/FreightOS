@@ -1,0 +1,113 @@
+scenario,model_set,metric,model,mean_rank,friedman_p,nemenyi_cd,n_blocks,tied_with_best
+baseline,core,mae,Prophet (additive),1.025,9.707897654939247e-39,1.4244647961072459,40,True
+baseline,core,mae,GRU baseline,3.35,9.707897654939247e-39,1.4244647961072459,40,False
+baseline,core,mae,LSTM baseline,3.35,9.707897654939247e-39,1.4244647961072459,40,False
+baseline,core,mae,LightGBM (rolling refit),3.65,9.707897654939247e-39,1.4244647961072459,40,False
+baseline,core,mae,DeepAR-style (mean),3.75,9.707897654939247e-39,1.4244647961072459,40,False
+baseline,core,mae,Seasonal Naive (lag=7),5.875,9.707897654939247e-39,1.4244647961072459,40,False
+baseline,core,mae,Naive Persistence,7.0,9.707897654939247e-39,1.4244647961072459,40,False
+baseline,core,asym_cost,Prophet (additive),1.025,2.4501299342412314e-40,1.4244647961072459,40,True
+baseline,core,asym_cost,GRU baseline,2.8,2.4501299342412314e-40,1.4244647961072459,40,False
+baseline,core,asym_cost,LSTM baseline,3.075,2.4501299342412314e-40,1.4244647961072459,40,False
+baseline,core,asym_cost,LightGBM (rolling refit),3.975,2.4501299342412314e-40,1.4244647961072459,40,False
+baseline,core,asym_cost,DeepAR-style (mean),4.325,2.4501299342412314e-40,1.4244647961072459,40,False
+baseline,core,asym_cost,Seasonal Naive (lag=7),5.9,2.4501299342412314e-40,1.4244647961072459,40,False
+baseline,core,asym_cost,Naive Persistence,6.9,2.4501299342412314e-40,1.4244647961072459,40,False
+baseline,decision,asym_cost,Prophet (additive),1.15,4.369738578837082e-22,1.660433897523222,40,True
+baseline,decision,asym_cost,"GRU, high penalty",4.05,4.369738578837082e-22,1.660433897523222,40,False
+baseline,decision,asym_cost,LSTM baseline,4.35,4.369738578837082e-22,1.660433897523222,40,False
+baseline,decision,asym_cost,"DeepAR-style (q=0.67, recal)",4.4,4.369738578837082e-22,1.660433897523222,40,False
+baseline,decision,asym_cost,"DeepAR-style (expectile, recal)",4.425,4.369738578837082e-22,1.660433897523222,40,False
+baseline,decision,asym_cost,"GRU, low penalty",5.475,4.369738578837082e-22,1.660433897523222,40,False
+baseline,decision,asym_cost,LightGBM (rolling refit),5.875,4.369738578837082e-22,1.660433897523222,40,False
+baseline,decision,asym_cost,DeepAR-style (mean),6.275,4.369738578837082e-22,1.660433897523222,40,False
+baseline,decision,pinball_q67,Prophet (additive),1.525,4.520423265859929e-23,1.660433897523222,40,True
+baseline,decision,pinball_q67,"GRU, high penalty",3.6,4.520423265859929e-23,1.660433897523222,40,False
+baseline,decision,pinball_q67,"DeepAR-style (q=0.67, recal)",3.925,4.520423265859929e-23,1.660433897523222,40,False
+baseline,decision,pinball_q67,"DeepAR-style (expectile, recal)",4.025,4.520423265859929e-23,1.660433897523222,40,False
+baseline,decision,pinball_q67,LSTM baseline,4.7,4.520423265859929e-23,1.660433897523222,40,False
+baseline,decision,pinball_q67,"GRU, low penalty",5.65,4.520423265859929e-23,1.660433897523222,40,False
+baseline,decision,pinball_q67,LightGBM (rolling refit),5.975,4.520423265859929e-23,1.660433897523222,40,False
+baseline,decision,pinball_q67,DeepAR-style (mean),6.6,4.520423265859929e-23,1.660433897523222,40,False
+baseline,shift,asym_cost,Prophet (additive) +quantile shift,1.475,1.4329651686823247e-35,1.4244647961072459,40,True
+baseline,shift,asym_cost,Prophet (additive),2.1,1.4329651686823247e-35,1.4244647961072459,40,True
+baseline,shift,asym_cost,Prophet (additive) +expectile shift,2.8,1.4329651686823247e-35,1.4244647961072459,40,True
+baseline,shift,asym_cost,LightGBM (rolling refit) +quantile shift,4.625,1.4329651686823247e-35,1.4244647961072459,40,False
+baseline,shift,asym_cost,LSTM baseline,5.2,1.4329651686823247e-35,1.4244647961072459,40,False
+baseline,shift,asym_cost,LightGBM (rolling refit) +expectile shift,5.6,1.4329651686823247e-35,1.4244647961072459,40,False
+baseline,shift,asym_cost,LightGBM (rolling refit),6.2,1.4329651686823247e-35,1.4244647961072459,40,False
+baseline,shift,pinball_q67,Prophet (additive) +quantile shift,1.45,1.7559114039688687e-37,1.4244647961072459,40,True
+baseline,shift,pinball_q67,Prophet (additive),2.325,1.7559114039688687e-37,1.4244647961072459,40,True
+baseline,shift,pinball_q67,Prophet (additive) +expectile shift,2.65,1.7559114039688687e-37,1.4244647961072459,40,True
+baseline,shift,pinball_q67,LightGBM (rolling refit) +quantile shift,4.15,1.7559114039688687e-37,1.4244647961072459,40,False
+baseline,shift,pinball_q67,LSTM baseline,5.35,1.7559114039688687e-37,1.4244647961072459,40,False
+baseline,shift,pinball_q67,LightGBM (rolling refit) +expectile shift,5.575,1.7559114039688687e-37,1.4244647961072459,40,False
+baseline,shift,pinball_q67,LightGBM (rolling refit),6.5,1.7559114039688687e-37,1.4244647961072459,40,False
+baseline,transfer,mae,Prophet (additive),1.05,3.0226930923334147e-28,1.192348990455099,40,True
+baseline,transfer,mae,LSTM baseline,3.225,3.0226930923334147e-28,1.192348990455099,40,False
+baseline,transfer,mae,LSTM pooled (all corridors),3.25,3.0226930923334147e-28,1.192348990455099,40,False
+baseline,transfer,mae,LightGBM (rolling refit),3.575,3.0226930923334147e-28,1.192348990455099,40,False
+baseline,transfer,mae,LSTM zero-shot (leave-one-corridor-out),4.0,3.0226930923334147e-28,1.192348990455099,40,False
+baseline,transfer,mae,Seasonal Naive (lag=7),5.9,3.0226930923334147e-28,1.192348990455099,40,False
+baseline,transfer,asym_cost,Prophet (additive),1.125,3.270326679583267e-29,1.192348990455099,40,True
+baseline,transfer,asym_cost,LSTM pooled (all corridors),2.525,3.270326679583267e-29,1.192348990455099,40,False
+baseline,transfer,asym_cost,LSTM zero-shot (leave-one-corridor-out),3.575,3.270326679583267e-29,1.192348990455099,40,False
+baseline,transfer,asym_cost,LSTM baseline,3.625,3.270326679583267e-29,1.192348990455099,40,False
+baseline,transfer,asym_cost,LightGBM (rolling refit),4.375,3.270326679583267e-29,1.192348990455099,40,False
+baseline,transfer,asym_cost,Seasonal Naive (lag=7),5.775,3.270326679583267e-29,1.192348990455099,40,False
+hard,core,mae,LightGBM (rolling refit),2.075,1.1682473496703216e-14,1.4244647961072459,40,True
+hard,core,mae,Prophet (additive),3.225,1.1682473496703216e-14,1.4244647961072459,40,True
+hard,core,mae,Seasonal Naive (lag=7),3.7,1.1682473496703216e-14,1.4244647961072459,40,False
+hard,core,mae,GRU baseline,3.7,1.1682473496703216e-14,1.4244647961072459,40,False
+hard,core,mae,DeepAR-style (mean),4.6,1.1682473496703216e-14,1.4244647961072459,40,False
+hard,core,mae,LSTM baseline,4.825,1.1682473496703216e-14,1.4244647961072459,40,False
+hard,core,mae,Naive Persistence,5.875,1.1682473496703216e-14,1.4244647961072459,40,False
+hard,core,asym_cost,LightGBM (rolling refit),2.225,2.356720257322229e-14,1.4244647961072459,40,True
+hard,core,asym_cost,Prophet (additive),2.925,2.356720257322229e-14,1.4244647961072459,40,True
+hard,core,asym_cost,GRU baseline,3.525,2.356720257322229e-14,1.4244647961072459,40,True
+hard,core,asym_cost,LSTM baseline,4.15,2.356720257322229e-14,1.4244647961072459,40,False
+hard,core,asym_cost,Seasonal Naive (lag=7),4.575,2.356720257322229e-14,1.4244647961072459,40,False
+hard,core,asym_cost,DeepAR-style (mean),4.75,2.356720257322229e-14,1.4244647961072459,40,False
+hard,core,asym_cost,Naive Persistence,5.85,2.356720257322229e-14,1.4244647961072459,40,False
+hard,decision,asym_cost,LightGBM (rolling refit),2.575,1.7176618419774712e-08,1.660433897523222,40,True
+hard,decision,asym_cost,Prophet (additive),3.6,1.7176618419774712e-08,1.660433897523222,40,True
+hard,decision,asym_cost,"GRU, high penalty",4.3,1.7176618419774712e-08,1.660433897523222,40,False
+hard,decision,asym_cost,"DeepAR-style (q=0.67, recal)",4.525,1.7176618419774712e-08,1.660433897523222,40,False
+hard,decision,asym_cost,"GRU, low penalty",4.7,1.7176618419774712e-08,1.660433897523222,40,False
+hard,decision,asym_cost,"DeepAR-style (expectile, recal)",5.125,1.7176618419774712e-08,1.660433897523222,40,False
+hard,decision,asym_cost,LSTM baseline,5.375,1.7176618419774712e-08,1.660433897523222,40,False
+hard,decision,asym_cost,DeepAR-style (mean),5.8,1.7176618419774712e-08,1.660433897523222,40,False
+hard,decision,pinball_q67,LightGBM (rolling refit),2.3,2.5814106573815465e-12,1.660433897523222,40,True
+hard,decision,pinball_q67,Prophet (additive),3.5,2.5814106573815465e-12,1.660433897523222,40,True
+hard,decision,pinball_q67,"DeepAR-style (q=0.67, recal)",4.125,2.5814106573815465e-12,1.660433897523222,40,False
+hard,decision,pinball_q67,"GRU, high penalty",4.325,2.5814106573815465e-12,1.660433897523222,40,False
+hard,decision,pinball_q67,"GRU, low penalty",5.0,2.5814106573815465e-12,1.660433897523222,40,False
+hard,decision,pinball_q67,"DeepAR-style (expectile, recal)",5.025,2.5814106573815465e-12,1.660433897523222,40,False
+hard,decision,pinball_q67,LSTM baseline,5.675,2.5814106573815465e-12,1.660433897523222,40,False
+hard,decision,pinball_q67,DeepAR-style (mean),6.05,2.5814106573815465e-12,1.660433897523222,40,False
+hard,shift,asym_cost,LightGBM (rolling refit) +quantile shift,2.925,4.002543815470329e-07,1.4244647961072459,40,True
+hard,shift,asym_cost,LightGBM (rolling refit),3.275,4.002543815470329e-07,1.4244647961072459,40,True
+hard,shift,asym_cost,LightGBM (rolling refit) +expectile shift,3.55,4.002543815470329e-07,1.4244647961072459,40,True
+hard,shift,asym_cost,Prophet (additive),3.825,4.002543815470329e-07,1.4244647961072459,40,True
+hard,shift,asym_cost,Prophet (additive) +quantile shift,4.125,4.002543815470329e-07,1.4244647961072459,40,True
+hard,shift,asym_cost,Prophet (additive) +expectile shift,4.9,4.002543815470329e-07,1.4244647961072459,40,False
+hard,shift,asym_cost,LSTM baseline,5.4,4.002543815470329e-07,1.4244647961072459,40,False
+hard,shift,pinball_q67,LightGBM (rolling refit) +quantile shift,2.7,1.7176352378322582e-11,1.4244647961072459,40,True
+hard,shift,pinball_q67,LightGBM (rolling refit) +expectile shift,3.325,1.7176352378322582e-11,1.4244647961072459,40,True
+hard,shift,pinball_q67,LightGBM (rolling refit),3.375,1.7176352378322582e-11,1.4244647961072459,40,True
+hard,shift,pinball_q67,Prophet (additive) +quantile shift,3.8,1.7176352378322582e-11,1.4244647961072459,40,True
+hard,shift,pinball_q67,Prophet (additive),3.925,1.7176352378322582e-11,1.4244647961072459,40,True
+hard,shift,pinball_q67,Prophet (additive) +expectile shift,4.925,1.7176352378322582e-11,1.4244647961072459,40,False
+hard,shift,pinball_q67,LSTM baseline,5.95,1.7176352378322582e-11,1.4244647961072459,40,False
+hard,transfer,mae,LSTM pooled (all corridors),2.525,2.272921366266309e-10,1.192348990455099,40,True
+hard,transfer,mae,LightGBM (rolling refit),2.6,2.272921366266309e-10,1.192348990455099,40,True
+hard,transfer,mae,LSTM zero-shot (leave-one-corridor-out),3.225,2.272921366266309e-10,1.192348990455099,40,True
+hard,transfer,mae,Prophet (additive),3.45,2.272921366266309e-10,1.192348990455099,40,True
+hard,transfer,mae,Seasonal Naive (lag=7),4.125,2.272921366266309e-10,1.192348990455099,40,False
+hard,transfer,mae,LSTM baseline,5.075,2.272921366266309e-10,1.192348990455099,40,False
+hard,transfer,asym_cost,LSTM pooled (all corridors),2.425,5.719692582575964e-09,1.192348990455099,40,True
+hard,transfer,asym_cost,LightGBM (rolling refit),3.0,5.719692582575964e-09,1.192348990455099,40,True
+hard,transfer,asym_cost,LSTM zero-shot (leave-one-corridor-out),3.0,5.719692582575964e-09,1.192348990455099,40,True
+hard,transfer,asym_cost,Prophet (additive),3.375,5.719692582575964e-09,1.192348990455099,40,True
+hard,transfer,asym_cost,LSTM baseline,4.5,5.719692582575964e-09,1.192348990455099,40,False
+hard,transfer,asym_cost,Seasonal Naive (lag=7),4.7,5.719692582575964e-09,1.192348990455099,40,False

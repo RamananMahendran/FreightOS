@@ -1,0 +1,41 @@
+{
+  "args": {
+    "scenarios": [
+      "baseline",
+      "hard"
+    ],
+    "n_seeds": 5,
+    "seed0": 42,
+    "n_corridors": 8,
+    "n_years": 3,
+    "stride": 5,
+    "refit_every": 4,
+    "epochs": 30,
+    "patience": 8,
+    "lr": 0.001,
+    "batch_size": 16,
+    "neural_refit": "finetune",
+    "finetune_epochs": 10,
+    "finetune_lr": 0.0003,
+    "finetune_patience": 4,
+    "pooled": "both",
+    "pooled_batch_size": 64,
+    "no_shift": false,
+    "shift_window": 24,
+    "shift_min_n": 5,
+    "skip_prophet": false,
+    "prophet_multiplicative": true,
+    "require_prophet": true,
+    "no_neural": false,
+    "plots": true,
+    "smoke": false,
+    "out_dir": "module2_eval_out"
+  },
+  "prophet_backend": "prophet",
+  "prophet_name": "Prophet (additive)",
+  "split": "70/15/15",
+  "horizon": 14,
+  "lookback": 30,
+  "tau": 0.6666666666666666,
+  "torch": "2.13.0+cpu"
+}

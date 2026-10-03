@@ -1,0 +1,89 @@
+corridor,model,val_mae,rank
+716087->732620 [Coal],Prophet (additive),1.2037374875117341,9.0
+716087->732620 [Coal],LightGBM (lag features),1.1721286943022247,8.0
+716087->732620 [Coal],Naive Persistence,2.434068193745083,11.0
+716087->732620 [Coal],Seasonal Naive (lag=7),1.3048073959820385,10.0
+716087->732620 [Coal],GRU baseline,1.0087172985076904,3.0
+716087->732620 [Coal],"GRU, 2 layers+dropout",0.9995374083518982,1.0
+716087->732620 [Coal],"GRU, larger hidden",1.0194213390350342,4.0
+716087->732620 [Coal],"GRU, low penalty",1.0480163097381592,5.0
+716087->732620 [Coal],"GRU, high penalty",1.1066254377365112,7.0
+716087->732620 [Coal],LSTM baseline,1.0019276142120361,2.0
+716087->732620 [Coal],DeepAR (probabilistic),1.0856032371520996,6.0
+716087->732624 [Others],Prophet (additive),0.14693210438100213,2.0
+716087->732624 [Others],LightGBM (lag features),0.15899050623766042,5.0
+716087->732624 [Others],Naive Persistence,0.34199161419895463,11.0
+716087->732624 [Others],Seasonal Naive (lag=7),0.20144561707033196,10.0
+716087->732624 [Others],GRU baseline,0.17220240831375122,8.0
+716087->732624 [Others],"GRU, 2 layers+dropout",0.1689741611480713,6.0
+716087->732624 [Others],"GRU, larger hidden",0.15235945582389832,4.0
+716087->732624 [Others],"GRU, low penalty",0.1694212108850479,7.0
+716087->732624 [Others],"GRU, high penalty",0.17694589495658875,9.0
+716087->732624 [Others],LSTM baseline,0.15207454562187195,3.0
+716087->732624 [Others],DeepAR (probabilistic),0.14334574341773987,1.0
+993507->716087 [Coal],Prophet (additive),1.290264214550345,1.0
+993507->716087 [Coal],LightGBM (lag features),1.4171891222037465,6.0
+993507->716087 [Coal],Naive Persistence,2.8732973875488357,11.0
+993507->716087 [Coal],Seasonal Naive (lag=7),1.909528044406688,10.0
+993507->716087 [Coal],GRU baseline,1.4081127643585205,4.0
+993507->716087 [Coal],"GRU, 2 layers+dropout",1.4185311794281006,8.0
+993507->716087 [Coal],"GRU, larger hidden",1.418208122253418,7.0
+993507->716087 [Coal],"GRU, low penalty",1.3973087072372437,3.0
+993507->716087 [Coal],"GRU, high penalty",1.4471323490142822,9.0
+993507->716087 [Coal],LSTM baseline,1.3836275339126587,2.0
+993507->716087 [Coal],DeepAR (probabilistic),1.4168319702148438,5.0
+716087->732623 [Coal],Prophet (additive),1.3421328149287763,1.0
+716087->732623 [Coal],LightGBM (lag features),1.4883406135044865,9.0
+716087->732623 [Coal],Naive Persistence,3.0326312498952315,11.0
+716087->732623 [Coal],Seasonal Naive (lag=7),2.032845118782486,10.0
+716087->732623 [Coal],GRU baseline,1.4098241329193115,4.0
+716087->732623 [Coal],"GRU, 2 layers+dropout",1.4155547618865967,5.0
+716087->732623 [Coal],"GRU, larger hidden",1.3978229761123657,3.0
+716087->732623 [Coal],"GRU, low penalty",1.4368432760238647,6.0
+716087->732623 [Coal],"GRU, high penalty",1.4486788511276245,7.0
+716087->732623 [Coal],LSTM baseline,1.390204668045044,2.0
+716087->732623 [Coal],DeepAR (probabilistic),1.4711267948150635,8.0
+716087->094702 [Fertilizers],Prophet (additive),0.09841111097842267,5.0
+716087->094702 [Fertilizers],LightGBM (lag features),0.10920412470552095,9.0
+716087->094702 [Fertilizers],Naive Persistence,0.22474093756885108,11.0
+716087->094702 [Fertilizers],Seasonal Naive (lag=7),0.13472534020606364,10.0
+716087->094702 [Fertilizers],GRU baseline,0.100380539894104,7.0
+716087->094702 [Fertilizers],"GRU, 2 layers+dropout",0.09755023568868637,3.0
+716087->094702 [Fertilizers],"GRU, larger hidden",0.09619661420583725,2.0
+716087->094702 [Fertilizers],"GRU, low penalty",0.0991176888346672,6.0
+716087->094702 [Fertilizers],"GRU, high penalty",0.10169646143913269,8.0
+716087->094702 [Fertilizers],LSTM baseline,0.09399775415658951,1.0
+716087->094702 [Fertilizers],DeepAR (probabilistic),0.09771305322647095,4.0
+191334->732624 [Container Service],Prophet (additive),0.09204729676019874,1.0
+191334->732624 [Container Service],LightGBM (lag features),0.10287201635528587,9.0
+191334->732624 [Container Service],Naive Persistence,0.22147265771571506,11.0
+191334->732624 [Container Service],Seasonal Naive (lag=7),0.12316237287604379,10.0
+191334->732624 [Container Service],GRU baseline,0.09476302564144135,2.0
+191334->732624 [Container Service],"GRU, 2 layers+dropout",0.09527405351400375,4.0
+191334->732624 [Container Service],"GRU, larger hidden",0.09507845342159271,3.0
+191334->732624 [Container Service],"GRU, low penalty",0.09893567115068436,8.0
+191334->732624 [Container Service],"GRU, high penalty",0.09588665515184402,5.0
+191334->732624 [Container Service],LSTM baseline,0.09723438322544098,7.0
+191334->732624 [Container Service],DeepAR (probabilistic),0.09722668677568436,6.0
+"756379->732624 [Petroleum, Oil and Lubricant]",Prophet (additive),0.07623019019301772,1.0
+"756379->732624 [Petroleum, Oil and Lubricant]",LightGBM (lag features),0.08571172784954721,3.0
+"756379->732624 [Petroleum, Oil and Lubricant]",Naive Persistence,0.17332581438700317,11.0
+"756379->732624 [Petroleum, Oil and Lubricant]",Seasonal Naive (lag=7),0.0984705108531154,9.0
+"756379->732624 [Petroleum, Oil and Lubricant]",GRU baseline,0.09115447849035263,8.0
+"756379->732624 [Petroleum, Oil and Lubricant]","GRU, 2 layers+dropout",0.08759165555238724,5.0
+"756379->732624 [Petroleum, Oil and Lubricant]","GRU, larger hidden",0.08777521550655365,6.0
+"756379->732624 [Petroleum, Oil and Lubricant]","GRU, low penalty",0.08414746075868607,2.0
+"756379->732624 [Petroleum, Oil and Lubricant]","GRU, high penalty",0.1084655225276947,10.0
+"756379->732624 [Petroleum, Oil and Lubricant]",LSTM baseline,0.09047363698482513,7.0
+"756379->732624 [Petroleum, Oil and Lubricant]",DeepAR (probabilistic),0.08584074676036835,4.0
+191334->732623 [Cement],Prophet (additive),0.19630900786941863,1.0
+191334->732623 [Cement],LightGBM (lag features),0.24268483196553706,5.0
+191334->732623 [Cement],Naive Persistence,0.4591706870431922,11.0
+191334->732623 [Cement],Seasonal Naive (lag=7),0.3225528959993155,10.0
+191334->732623 [Cement],GRU baseline,0.24028702080249786,4.0
+191334->732623 [Cement],"GRU, 2 layers+dropout",0.24298730492591858,6.0
+191334->732623 [Cement],"GRU, larger hidden",0.24560903012752533,7.0
+191334->732623 [Cement],"GRU, low penalty",0.24785372614860535,8.0
+191334->732623 [Cement],"GRU, high penalty",0.26018771529197693,9.0
+191334->732623 [Cement],LSTM baseline,0.21979652345180511,3.0
+191334->732623 [Cement],DeepAR (probabilistic),0.21703003346920013,2.0

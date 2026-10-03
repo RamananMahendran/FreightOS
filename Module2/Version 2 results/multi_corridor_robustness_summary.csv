@@ -1,0 +1,12 @@
+model,avg_rank,avg_val_mae,n_corridors
+Prophet (additive),2.625,0.5557580283966144,8
+LSTM baseline,3.375,0.5536670824512839,8
+"GRU, larger hidden",4.5,0.5640589008107781,8
+DeepAR (probabilistic),4.5,0.5768397832289338,8
+"GRU, 2 layers+dropout",4.75,0.5657500950619578,8
+GRU baseline,5.0,0.5656802086159587,8
+"GRU, low penalty",5.625,0.5727055063471198,8
+LightGBM (lag features),6.75,0.5971402046405011,8
+"GRU, high penalty",8.0,0.5932023609057069,8
+Seasonal Naive (lag=7),9.875,0.7659421620220104,8
+Naive Persistence,11.0,1.2200873177628582,8
