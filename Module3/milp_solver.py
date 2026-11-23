@@ -51,26 +51,26 @@ class ExactMILPSolver:
         for c in self.cargos:
             for t in self.trains:
                 x[(c["id"], t["id"])] = pulp.LpVariable(
-                    f"x_{c['id']}_{t['id']}", cat=pulp.LpBinary
+                    f"x_{c['id']}_{t['id']}", cat="Binary"
                 )
 
         # u[t] = 1 if train t is utilized
         u = {
-            t["id"]: pulp.LpVariable(f"u_{t['id']}", cat=pulp.LpBinary)
+            t["id"]: pulp.LpVariable(f"u_{t['id']}", cat="Binary")
             for t in self.trains
         }
 
         # d[t] = Departure time of train t (hours)
         d = {
             t["id"]: pulp.LpVariable(
-                f"dep_{t['id']}", lowBound=t["ready_time_hrs"], cat=pulp.LpContinuous
+                f"dep_{t['id']}", lowBound=t["ready_time_hrs"], cat="Continuous"
             )
             for t in self.trains
         }
 
         # tardi[j] = Tardiness of cargo j (hours)
         tardiness = {
-            c["id"]: pulp.LpVariable(f"tardi_{c['id']}", lowBound=0.0, cat=pulp.LpContinuous)
+            c["id"]: pulp.LpVariable(f"tardi_{c['id']}", lowBound=0.0, cat="Continuous")
             for c in self.cargos
         }
 
@@ -82,7 +82,7 @@ class ExactMILPSolver:
                 t1_id, t2_id = train_ids[i], train_ids[j]
                 t1, t2 = self.train_dict[t1_id], self.train_dict[t2_id]
                 if t1.get("segment_id") == t2.get("segment_id"):
-                    z[(t1_id, t2_id)] = pulp.LpVariable(f"z_{t1_id}_{t2_id}", cat=pulp.LpBinary)
+                    z[(t1_id, t2_id)] = pulp.LpVariable(f"z_{t1_id}_{t2_id}", cat="Binary")
 
         # --- Constraints ---
 

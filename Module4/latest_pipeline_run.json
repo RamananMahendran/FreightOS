@@ -1,0 +1,15 @@
+{
+  "status": "APPROVED_FOR_DISPATCH",
+  "optimizer_duration_s": 0.038,
+  "tier1_elapsed_ms": 0.12,
+  "tier2_duration_s": 0.001,
+  "trains_scheduled": 6,
+  "convoys_formed": 2,
+  "safety_verdict": "ACCEPT",
+  "gatekeeper_contract": {
+    "headway_safety_violations": 0,
+    "hazard_location": null,
+    "delay_reduction_percentage": 1.3,
+    "estimated_arrival_time": 4.55
+  }
+}

@@ -37,6 +37,20 @@ C. Post-hoc asymmetric shift for Prophet and LightGBM (disable with --no-shift)
    already realised; a rolling-origin backtest over the validation span provides the
    warm-up history. Rows: '<model> +expectile shift', '<model> +quantile shift'.
 
+D. (v6) Commodity-embedding + calendar pooled model, ensembles, cold-start test
+   Model class comes from the production pipeline (demand_pipeline_version3.py:
+   CommodityCovariateLSTM, single source of truth). Rows added:
+     LSTM pooled+emb+cal                    pooled model with commodity embedding and
+                                            known-future calendar covariates
+     LSTM pooled+emb (no cal) / +cal (no emb)   ablations (--emb-ablate)
+     LSTM+emb+cal zero-shot (leave-one-corridor-out)   held-out corridor keeps its
+                                            commodity id when a sibling was trained on
+                                            (the realistic 'new corridor' case), else UNK
+     LSTM zero-shot (leave-one-commodity-out) and the emb version: a WHOLE commodity is
+                                            withheld (UNK id) -- the honest cold-start test
+     Ensemble: LightGBM + LSTM pooled / + pooled+emb+cal / + Prophet   equal-weight mean
+   Control with --emb {off,pooled,transfer,all} and --no-per-corridor-nn.
+
 Everything from v4 still applies: test-only scoring, rolling origins (stride 5, never
 a multiple of 7), seeds controlling data AND initialisation, labelled Prophet backend
 (--require-prophet), 'DeepAR-style' = LSTM with a direct Gaussian multi-horizon head
@@ -48,6 +62,7 @@ Usage
   python module2_eval_harness.py --smoke
   python module2_eval_harness.py --require-prophet --prophet-multiplicative --plots
   python module2_eval_harness.py --neural-refit frozen --pooled off --no-shift   # ~v4
+  python module2_eval_harness.py --preset ensemble --require-prophet             # LightGBM / pooled / emb+cal / ensembles
 """
 from __future__ import annotations
 
@@ -98,6 +113,16 @@ DA_E_R = "DeepAR-style (expectile, recal)"
 LGB_NAME = "LightGBM (rolling refit)"
 POOLED_NAME = "LSTM pooled (all corridors)"
 LOCO_NAME = "LSTM zero-shot (leave-one-corridor-out)"
+LOCC_NAME = "LSTM zero-shot (leave-one-commodity-out)"
+EMB_NAME = "LSTM pooled+emb+cal"
+EMB_NOCAL_NAME = "LSTM pooled+emb (no cal)"
+EMB_NOEMB_NAME = "LSTM pooled+cal (no emb)"
+EMB_LOCO_NAME = "LSTM+emb+cal zero-shot (leave-one-corridor-out)"
+EMB_LOCC_NAME = "LSTM+emb+cal zero-shot (leave-one-commodity-out)"
+ENS_LGB_POOLED = "Ensemble: LightGBM + LSTM pooled"
+ENS_LGB_EMB = "Ensemble: LightGBM + LSTM pooled+emb+cal"
+ENS_LGB_PROPHET = "Ensemble: LightGBM + Prophet"
+M2 = None  # production-pipeline module (model classes), imported in main()
 NAIVE, SNAIVE = "Naive Persistence", "Seasonal Naive (lag=7)"
 
 
@@ -150,6 +175,10 @@ def _hard_multiplier(rng: np.random.Generator, n: int) -> np.ndarray:
     return np.exp(e) * level * disr
 
 
+def corridor_label(origin, dest, commodity) -> str:
+    return f"{str(origin)[-6:]}->{str(dest)[-6:]} [{commodity}]"
+
+
 def synthesize_series(corridors, growth_rates, seasonal_index, scenario: str, seed: int,
                       n_years: int = 3, start: str = "2023-01-01"):
     """Returns {label: (dates, y)}. Fixed start date + seeded Generator => reproducible."""
@@ -174,7 +203,7 @@ def synthesize_series(corridors, growth_rates, seasonal_index, scenario: str, se
             mult = _hard_multiplier(rng, n)
         else:
             raise ValueError(f"unknown scenario {scenario!r}")
-        label = f"{str(origin)[-6:]}->{str(dest)[-6:]} [{commodity}]"
+        label = corridor_label(origin, dest, commodity)
         out[label] = (dates, np.maximum(0.0, base * mult))
     return out
 
@@ -401,6 +430,8 @@ if HAVE_TORCH:
                               patience, batch_size, eval_initial=False):
         """Train, select the best epoch on VAL MAE (in tonnes via `sd`), RESTORE those weights.
         eval_initial=True (warm-start fine-tuning): the incoming weights compete too."""
+        n_tr = len(Xtr[0]) if isinstance(Xtr, tuple) else len(Xtr)
+        take = (lambda X, i: tuple(t[i] for t in X)) if isinstance(Xtr, tuple) else (lambda X, i: X[i])
         opt = torch.optim.Adam(model.parameters(), lr=lr)
         gen = torch.Generator().manual_seed(seed)
         best, best_state, best_ep, stale = math.inf, None, -1, 0
@@ -414,11 +445,11 @@ if HAVE_TORCH:
             best, best_state = val_mae(), copy.deepcopy(model.state_dict())
         for ep in range(epochs):
             model.train()
-            perm = torch.randperm(len(Xtr), generator=gen)
+            perm = torch.randperm(n_tr, generator=gen)
             for i in range(0, len(perm), batch_size):
                 idx = perm[i:i + batch_size]
                 opt.zero_grad()
-                loss_fn(model, Xtr[idx], Ytr[idx]).backward()
+                loss_fn(model, take(Xtr, idx), Ytr[idx]).backward()
                 nn.utils.clip_grad_norm_(model.parameters(), 1.0)
                 opt.step()
             v = val_mae()
@@ -548,36 +579,60 @@ def deepar_outputs(da: dict, act: np.ndarray, scale: float):
 # --------------------------------------------------------------------------- #
 # Pooled / zero-shot neural models (experiment B)
 # --------------------------------------------------------------------------- #
-def train_pooled(prep, S, o_te, args, seed, train_keys, target_keys):
+def _pooled_windows(prep, k, origins, kind, cid):
+    """Windows for one corridor. plain -> X tensor; emb kinds -> (X, cid, future-calendar) tuple."""
+    X, Y = make_windows(prep[k]["feats"], prep[k]["yn"], origins, LOOKBACK, HORIZON)
+    if kind == "plain":
+        return X, Y
+    cal = np.stack([prep[k]["cal"][t + 1:t + 1 + HORIZON] for t in origins]).astype(np.float32)
+    return (X, torch.full((len(origins),), cid, dtype=torch.long), torch.from_numpy(cal)), Y
+
+
+def _cat_windows(parts):
+    X0 = parts[0][0]
+    X = tuple(torch.cat([p[0][i] for p in parts]) for i in range(len(X0))) if isinstance(X0, tuple) \
+        else torch.cat([p[0] for p in parts])
+    return X, torch.cat([p[1] for p in parts])
+
+
+def _make_pooled_model(kind, nf, seed):
+    torch.manual_seed(seed)
+    if kind == "plain":
+        return RecurrentForecaster(nf, NNConfig("LSTM pooled", "LSTM"), HORIZON)
+    return M2.CommodityCovariateLSTM(n_past_feats=nf, use_emb=kind != "cal_only", use_cal=kind != "emb_only")
+
+
+def train_pooled(prep, S, o_te, args, seed, train_keys, target_keys, kind="plain", target_cid=None):
     """One LSTM trained on windows pooled from `train_keys`; returns {key: (n,H) tonnes} for `target_keys`.
+    kind: 'plain' | 'emb' (commodity embedding + calendar) | 'emb_only' | 'cal_only'.
+    target_cid: {key: id} overriding the commodity id used when scoring a target (0 = UNK).
     Block-wise refit follows --neural-refit. Checkpoints use normalised-space MAE (sd=1)."""
     n, nf = len(o_te), prep[train_keys[0]]["feats"].shape[1]
-    cfg = NNConfig("LSTM pooled", "LSTM")
+    c_under = 2.0
+    fwd = (lambda m, x: m(x)) if kind == "plain" else (lambda m, x: m(*x))
     preds = {k: np.empty((n, HORIZON)) for k in target_keys}
     model = None
     for bi, blk in enumerate(neural_blocks(n, args)):
         t0 = o_te[blk[0]]
         tr_o, va_o = block_train_val_origins(S, t0, bi == 0)
-        parts = [(make_windows(prep[k]["feats"], prep[k]["yn"], tr_o, LOOKBACK, HORIZON),
-                  make_windows(prep[k]["feats"], prep[k]["yn"], va_o, LOOKBACK, HORIZON)) for k in train_keys]
-        Xtr, Ytr = torch.cat([p[0][0] for p in parts]), torch.cat([p[0][1] for p in parts])
-        Xva, Yva = torch.cat([p[1][0] for p in parts]), torch.cat([p[1][1] for p in parts])
+        Xtr, Ytr = _cat_windows([_pooled_windows(prep, k, tr_o, kind, prep[k]["cid"]) for k in train_keys])
+        Xva, Yva = _cat_windows([_pooled_windows(prep, k, va_o, kind, prep[k]["cid"]) for k in train_keys])
         fresh = bi == 0 or args.neural_refit == "full"
         if fresh:
-            torch.manual_seed(seed if bi == 0 else seed + 1000 * bi)
-            model = RecurrentForecaster(nf, cfg, HORIZON)
+            model = _make_pooled_model(kind, nf, seed if bi == 0 else seed + 1000 * bi)
         train_best_checkpoint(
-            model, lambda m, x, y: cost_matrix_loss(m(x), y, cfg.c_under), lambda m, x: m(x),
+            model, lambda m, x, y: cost_matrix_loss(fwd(m, x), y, c_under), fwd,
             Xtr, Ytr, Xva, Yva, 1.0, seed, **_hp(args, fresh, args.pooled_batch_size))
         for k in target_keys:
-            Xte, _ = make_windows(prep[k]["feats"], prep[k]["yn"], [o_te[i] for i in blk], LOOKBACK, HORIZON)
+            cid = prep[k]["cid"] if not target_cid or k not in target_cid else target_cid[k]
+            Xte, _ = _pooled_windows(prep, k, [o_te[i] for i in blk], kind, cid)
             with torch.no_grad():
-                preds[k][blk] = model(Xte).numpy() * prep[k]["sd"] + prep[k]["mu0"]
+                preds[k][blk] = fwd(model, Xte).numpy() * prep[k]["sd"] + prep[k]["mu0"]
     return preds
 
 
-def run_pooled_suite(series, args, seed):
-    """{label: {model_name: (n,H) preds}} for the pooled and leave-one-corridor-out LSTMs."""
+def run_pooled_suite(series, args, seed, commodity_of=None):
+    """{label: {model_name: (n,H) preds}} for pooled / zero-shot / embedding LSTMs."""
     keys = list(series)
     n = len(series[keys[0]][1])
     S = make_splits(n)
@@ -586,22 +641,57 @@ def run_pooled_suite(series, args, seed):
     for k, (dates, y) in series.items():
         mu0, sd = float(y[:S.a].mean()), float(y[:S.a].std() + 1e-6)
         yn = (y - mu0) / sd
-        prep[k] = dict(feats=build_features(yn, dates), yn=yn, mu0=mu0, sd=sd)
+        comm = (commodity_of or {}).get(k)
+        prep[k] = dict(feats=build_features(yn, dates), yn=yn, mu0=mu0, sd=sd, commodity=comm,
+                       cal=M2.calendar_covariates(dates) if M2 is not None else None,
+                       cid=M2.COMMODITY_INDEX.get(comm, 0) if M2 is not None else 0)
     out = {k: {} for k in keys}
+
+    def run(name, kind, train_keys, target_keys, target_cid=None):
+        res = train_pooled(prep, S, o_te, args, seed, train_keys, target_keys, kind, target_cid)
+        for k in target_keys:
+            out[k][name] = res[k]
+
     if args.pooled in ("pooled", "both"):
-        res = train_pooled(prep, S, o_te, args, seed, keys, keys)
-        for k in keys:
-            out[k][POOLED_NAME] = res[k]
+        run(POOLED_NAME, "plain", keys, keys)
     if args.pooled in ("loco", "both") and len(keys) > 1:
         for k in keys:
-            res = train_pooled(prep, S, o_te, args, seed, [x for x in keys if x != k], [k])
-            out[k][LOCO_NAME] = res[k]
+            run(LOCO_NAME, "plain", [x for x in keys if x != k], [k])
+    if args.emb != "off" and M2 is not None:
+        if args.emb in ("pooled", "all"):
+            run(EMB_NAME, "emb", keys, keys)
+            if args.emb_ablate:
+                run(EMB_NOCAL_NAME, "emb_only", keys, keys)
+                run(EMB_NOEMB_NAME, "cal_only", keys, keys)
+        if args.emb in ("transfer", "all"):
+            comms = sorted({prep[k]["commodity"] for k in keys if prep[k]["commodity"]})
+            for k in keys:  # new corridor: keeps its commodity id only if a sibling was trained on
+                others = [x for x in keys if x != k]
+                if not others:
+                    continue
+                seen = any(prep[x]["commodity"] == prep[k]["commodity"] for x in others)
+                run(EMB_LOCO_NAME, "emb", others, [k], None if seen else {k: 0})
+            if len(comms) > 1:  # withhold a WHOLE commodity: true cold start
+                for c in comms:
+                    held = [k for k in keys if prep[k]["commodity"] == c]
+                    rest = [k for k in keys if prep[k]["commodity"] != c]
+                    run(LOCC_NAME, "plain", rest, held)
+                    run(EMB_LOCC_NAME, "emb", rest, held, {k: 0 for k in held})
     return out
 
 
 # --------------------------------------------------------------------------- #
 # Per-series evaluation
 # --------------------------------------------------------------------------- #
+def add_ensembles(preds: dict, prophet_labels: dict) -> None:
+    """Equal-weight forecast combinations (no fitted weights, so nothing to overfit)."""
+    pn = next(iter(prophet_labels.values()))
+    for name, a, b in [(ENS_LGB_POOLED, LGB_NAME, POOLED_NAME), (ENS_LGB_EMB, LGB_NAME, EMB_NAME),
+                       (ENS_LGB_PROPHET, LGB_NAME, pn)]:
+        if a in preds and b in preds:
+            preds[name] = 0.5 * (preds[a] + preds[b])
+
+
 def classical_forecasts(y, dates, origins, args, prophet_labels, backend, seed):
     out = {LGB_NAME: forecast_lightgbm_rolling(y, dates, origins, HORIZON, args.refit_every, seed)}
     if not args.skip_prophet:
@@ -632,12 +722,14 @@ def evaluate_series(label, dates, y, scenario, seed, args, prophet_labels, backe
 
     prob_rows = []
     if not args.no_neural:
-        yn = (y - mu0) / sd
-        nn_preds, da = run_neural(build_features(yn, dates), yn, S, o_te, mu0, sd, seed, args)
-        preds.update(nn_preds)
-        da_preds, prob_rows = deepar_outputs(da, act, scale)
-        preds.update(da_preds)
+        if not args.no_per_corridor_nn:
+            yn = (y - mu0) / sd
+            nn_preds, da = run_neural(build_features(yn, dates), yn, S, o_te, mu0, sd, seed, args)
+            preds.update(nn_preds)
+            da_preds, prob_rows = deepar_outputs(da, act, scale)
+            preds.update(da_preds)
         preds.update(extra_preds or {})
+    add_ensembles(preds, prophet_labels)
 
     base = dict(scenario=scenario, seed=seed, corridor=label)
     rows = [dict(**base, model=name, backend=backend if name.startswith("Prophet") else "",
@@ -700,10 +792,15 @@ def print_report(df, prob_df, prophet_name, out_dir):
     E, Q = (lambda m: shifted_name(m, "expectile")), (lambda m: shifted_name(m, "quantile"))
     shift = [prophet_name, E(prophet_name), Q(prophet_name), LGB_NAME, E(LGB_NAME), Q(LGB_NAME), "LSTM baseline"]
     transfer = [prophet_name, LGB_NAME, SNAIVE, "LSTM baseline", POOLED_NAME, LOCO_NAME]
+    ensemble = [LGB_NAME, prophet_name, POOLED_NAME, EMB_NAME, ENS_LGB_POOLED, ENS_LGB_EMB, ENS_LGB_PROPHET]
+    ablation = [POOLED_NAME, EMB_NAME, EMB_NOCAL_NAME, EMB_NOEMB_NAME]
+    cold = [SNAIVE, LOCC_NAME, EMB_LOCC_NAME, LOCO_NAME, EMB_LOCO_NAME, EMB_NAME]
     plan = [("core", core, "mae"), ("core", core, "asym_cost"),
             ("decision", decision, "asym_cost"), ("decision", decision, "pinball_q67"),
             ("shift", shift, "asym_cost"), ("shift", shift, "pinball_q67"),
-            ("transfer", transfer, "mae"), ("transfer", transfer, "asym_cost")]
+            ("transfer", transfer, "mae"), ("transfer", transfer, "asym_cost"),
+            ("ensemble", ensemble, "mae"), ("ensemble", ensemble, "asym_cost"),
+            ("emb_ablation", ablation, "mae"), ("cold_start", cold, "mae")]
     pairs = [(prophet_name, "LSTM baseline", "nmae"), (DA_MEAN, "LSTM baseline", "nmae"),
              (prophet_name, "LSTM baseline", "asym_cost"),
              (DA_E_R, "LSTM baseline", "asym_cost"), (DA_Q_R, "LSTM baseline", "npinball_q67"),
@@ -711,7 +808,17 @@ def print_report(df, prob_df, prophet_name, out_dir):
              (Q(prophet_name), prophet_name, "npinball_q67"), (Q(LGB_NAME), LGB_NAME, "npinball_q67"),
              (E(prophet_name), "LSTM baseline", "asym_cost"), (E(LGB_NAME), "LSTM baseline", "asym_cost"),
              (POOLED_NAME, "LSTM baseline", "nmae"), (LOCO_NAME, "LSTM baseline", "nmae"),
-             (LOCO_NAME, SNAIVE, "nmae"), (LOCO_NAME, prophet_name, "nmae"), (LOCO_NAME, LGB_NAME, "nmae")]
+             (LOCO_NAME, SNAIVE, "nmae"), (LOCO_NAME, prophet_name, "nmae"), (LOCO_NAME, LGB_NAME, "nmae"),
+             # D: embeddings / calendar / ensembles
+             (EMB_NAME, POOLED_NAME, "nmae"), (EMB_NAME, POOLED_NAME, "asym_cost"), (EMB_NAME, LGB_NAME, "nmae"),
+             (EMB_NOCAL_NAME, POOLED_NAME, "nmae"), (EMB_NOEMB_NAME, POOLED_NAME, "nmae"),
+             (EMB_NAME, EMB_NOCAL_NAME, "nmae"), (EMB_NAME, EMB_NOEMB_NAME, "nmae"),
+             (ENS_LGB_POOLED, LGB_NAME, "nmae"), (ENS_LGB_POOLED, POOLED_NAME, "nmae"),
+             (ENS_LGB_EMB, LGB_NAME, "nmae"), (ENS_LGB_EMB, EMB_NAME, "nmae"),
+             (ENS_LGB_EMB, ENS_LGB_POOLED, "nmae"), (ENS_LGB_EMB, LGB_NAME, "asym_cost"),
+             (ENS_LGB_PROPHET, LGB_NAME, "nmae"), (ENS_LGB_PROPHET, prophet_name, "nmae"),
+             (EMB_LOCC_NAME, LOCC_NAME, "nmae"), (EMB_LOCO_NAME, LOCO_NAME, "nmae"),
+             (EMB_LOCC_NAME, SNAIVE, "nmae"), (EMB_LOCC_NAME, LGB_NAME, "nmae"), (EMB_LOCO_NAME, EMB_NAME, "nmae")]
     pd.set_option("display.width", 200)
     test_rows = []
     for sc in df.scenario.unique():
@@ -799,6 +906,15 @@ def parse_args():
     p.add_argument("--pooled", choices=["off", "pooled", "loco", "both"], default="both",
                    help="pooled / leave-one-corridor-out LSTMs (B)")
     p.add_argument("--pooled-batch-size", type=int, default=64)
+    p.add_argument("--emb", choices=["off", "pooled", "transfer", "all"], default="all",
+                   help="commodity-embedding + calendar pooled LSTM (D): in-sample / cold-start tests")
+    p.add_argument("--emb-ablate", action="store_true", help="also run emb-only and calendar-only ablations")
+    p.add_argument("--no-per-corridor-nn", action="store_true",
+                   help="skip per-corridor GRU/LSTM/DeepAR (much faster; pooled/emb models still run)")
+    p.add_argument("--model-module", default="demand_pipeline_version3",
+                   help="module providing CommodityCovariateLSTM / calendar_covariates")
+    p.add_argument("--pipeline-module", default="demand_pipeline_version3",
+                   help="module providing the data loaders and corridor selection")
     p.add_argument("--no-shift", action="store_true", help="skip post-hoc asymmetric shifts (C)")
     p.add_argument("--shift-window", type=int, default=24, help="# recent origins of residuals used")
     p.add_argument("--shift-min-n", type=int, default=5)
@@ -808,8 +924,15 @@ def parse_args():
     p.add_argument("--no-neural", action="store_true")
     p.add_argument("--plots", action="store_true")
     p.add_argument("--smoke", action="store_true", help="1 seed, 3 corridors, 3 epochs")
+    p.add_argument("--preset", choices=["none", "ensemble"], default="none",
+                   help="'ensemble': focused run of LightGBM vs pooled LSTM vs pooled+emb+cal vs their "
+                        "equal-weight ensembles, with ablations and leave-one-commodity-out cold start "
+                        "(skips per-corridor networks and post-hoc shift)")
     p.add_argument("--out-dir", default="module2_eval_out")
     a = p.parse_args()
+    if a.preset == "ensemble":
+        a.no_per_corridor_nn, a.no_shift = True, True
+        a.pooled, a.emb, a.emb_ablate = "pooled", "all", True
     if a.smoke:
         a.n_seeds, a.n_corridors, a.epochs, a.finetune_epochs = 1, 3, 3, 2
     return a
@@ -837,7 +960,10 @@ def main():
     prophet_name = next(iter(prophet_labels.values()))
 
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    pipe = importlib.import_module("demand_pipeline_module2")
+    pipe = importlib.import_module(args.pipeline_module)
+    global M2
+    if not args.no_neural:
+        M2 = importlib.import_module(args.model_module)
     growth = pipe.fit_commodity_growth_rates(pipe.load_annual_dataset(), pipe.load_recent_dataset())
     seasonal = pipe.fit_monthly_seasonal_index(pipe.load_monthly_dataset())
     try:
@@ -846,6 +972,7 @@ def main():
         print(f"WARNING: AGE graph unavailable ({exc}); using FALLBACK_CORRIDORS.")
         corridors = pipe.FALLBACK_CORRIDORS
     corridors = list(corridors)[:args.n_corridors]
+    commodity_of = {corridor_label(o, d, c): c for o, d, c, _ in corridors}
 
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -858,8 +985,8 @@ def main():
             np.random.seed(seed)
             series = synthesize_series(corridors, growth, seasonal, scenario, seed, args.n_years)
             extra = {k: {} for k in series}
-            if not args.no_neural and args.pooled != "off":
-                extra = run_pooled_suite(series, args, seed)
+            if not args.no_neural and (args.pooled != "off" or args.emb != "off"):
+                extra = run_pooled_suite(series, args, seed, commodity_of)
                 print(f"[{time.time() - t_start:7.0f}s] {scenario:8s} seed={seed} pooled/LOCO models done")
             for label, (dates, y) in series.items():
                 r, pr = evaluate_series(label, dates, y, scenario, seed, args, prophet_labels, backend, extra[label])
